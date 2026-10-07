@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">RentRadar</string>
+
+    <string name="brand_tagline">Know what a place should cost before you pay the deposit.</string>
+    <string name="splash_tagline">Rental price intelligence</string>
+    <string name="splash_institution">Valley View University</string>
+
+    <string name="register_title">Create account</string>
+    <string name="register_subtitle">Your market decides which price model answers your questions, so it cannot be changed later.</string>
+    <string name="register_legal">By creating an account you agree that estimates are advisory and that RentRadar does not broker rentals.</string>
+
+    <string name="field_email">Email</string>
+    <string name="field_password">Password</string>
+    <string name="field_market">Market</string>
+    <string name="hint_password_min">at least 12 characters</string>
+    <string name="label_i_am_a">I am a</string>
+
+    <string name="role_tenant">Tenant</string>
+    <string name="role_landlord">Landlord</string>
+
+    <string name="action_sign_in">Sign in</string>
+    <string name="action_create_account">Create account</string>
+    <string name="action_forgot_password">Forgot password?</string>
+    <string name="action_sign_out">Sign out</string>
+    <string name="action_or">or</string>
+    <string name="action_back">Back</string>
+
+    <string name="locale_tag">Ghana · GHS · en-GH</string>
+
+    <string name="error_email_required">Enter your email</string>
+    <string name="error_email_invalid">That does not look like an email address</string>
+    <string name="error_password_required">Enter your password</string>
+    <string name="error_password_short">At least 12 characters</string>
+    <string name="error_network">Could not reach the server. Check that it is running.</string>
+    <string name="error_unknown">Something went wrong. Try again.</string>
+    <string name="error_reset_unavailable">Password reset is not available yet.</string>
+
+
+    <string name="result_estimate_heading">Fair price estimate</string>
+    <string name="result_range_separator">to</string>
+    <string name="result_interval_label">Likely monthly rent, 9 times in 10 (%1$s)</string>
+    <string name="result_asking">Asking %1$s</string>
+
+    <string name="verdict_below">Below market</string>
+    <string name="verdict_at">At market</string>
+    <string name="verdict_above">Above market</string>
+
+    <string name="result_risk_heading">Price check</string>
+    <string name="risk_low">Looks ordinary</string>
+    <string name="risk_medium">Worth checking</string>
+    <string name="risk_high">Check carefully</string>
+
+
+    <string name="result_model_line">Price model %1$s, fraud model %2$s. Answered in %3$d ms.</string>
+    <string name="result_forecast_unavailable">No 30-day outlook for this area yet.</string>
+    <string name="result_retry">Try again</string>
+    <string name="input_heading">Check a rent</string>
+    <string name="input_subheading">Tell us about the place and we will say what it should cost.</string>
+
+    <string name="input_section_place">The place</string>
+    <string name="input_title">Short description</string>
+    <string name="input_locality">Area</string>
+    <string name="input_locality_helper">Accra only for now</string>
+    <string name="input_type">Property type</string>
+
+    <string name="input_section_rooms">Rooms</string>
+    <string name="input_bedrooms">Bedrooms</string>
+    <string name="input_bathrooms">Bathrooms</string>
+    <string name="input_toilets">Toilets</string>
+    <string name="input_parking">Parking spaces</string>
+
+    <string name="input_size">Plot size</string>
+    <string name="input_size_unit">Unit</string>
+    <string name="input_size_note">Recorded with the listing. It does not change the estimate, because the listings we learned from publish plot area rather than the floor area of the dwelling.</string>
+
+    <string name="input_section_features">Features</string>
+    <string name="input_furnished">Furnished</string>
+    <string name="input_amenities">Tick anything the listing mentions.</string>
+
+    <string name="input_section_rent">Asking rent</string>
+    <string name="input_price">Monthly rent</string>
+    <string name="input_price_helper">Per month, in cedis</string>
+    <string name="currency_symbol_ghs">GH\u20B5</string>
+
+    <string name="input_no_id">The listing was saved but the server did not return its id, so the estimate cannot be opened.</string>
+
+    <string name="input_submit">Get the estimate</string>
+    <string name="input_required">Required</string>
+    <string name="input_price_range">Enter a monthly rent between 300 and 300,000</string>
+
+    <string name="risk_reason_low">The asking price sits inside the usual range for this kind of place in %1$s.</string>
+    <string name="risk_reason_below">The asking price is %1$d per cent below the usual range for this many bedrooms in %2$s.</string>
+    <string name="risk_reason_above">The asking price is %1$d per cent above the usual range for this many bedrooms in %2$s.</string>
+
+    <string name="result_risk_checklist_heading">Before you pay anything</string>
+    <string name="result_risk_checklist">View the property in person before any payment.\nAsk to see the landlord\'s proof of ownership or the agent\'s licence.\nNever send money to hold a place you have not seen.\nPay in a way that leaves a record, and get a written receipt.\nIf you are rushed to decide, slow down.</string>
+
+    <string name="result_forecast_heading">30-day outlook</string>
+    <string name="result_forecast_detail">See the detail</string>
+    <string name="forecast_rising">Asking prices in %1$s have been rising over the past month.</string>
+    <string name="forecast_stable">Asking prices in %1$s have been broadly flat over the past month.</string>
+    <string name="forecast_falling">Asking prices in %1$s have been easing over the past month.</string>
+
+    <string name="result_how_heading">How this was worked out</string>
+    <string name="result_basis">Bedrooms, bathrooms, toilets, locality and listed amenities, compared with %1$s Accra listings.</string>
+    <string name="result_cached">Saved estimate from %1$s. You are offline, so this has not been rechecked.</string>
+    <string name="result_stub_warning">This estimate came from a placeholder model, not a trained one. Treat the figure as an illustration rather than a valuation.</string>
+</resources>

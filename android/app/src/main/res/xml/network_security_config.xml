@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <!--
+      Cleartext is permitted ONLY for the emulator loopback host. Everything
+      else, including the production API, stays HTTPS only.
+      Before you cut a release build this file should move to src/debug/res/xml
+      so the permission cannot ship.
+    -->
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="false">10.0.2.2</domain>
+        <domain includeSubdomains="false">localhost</domain>
+    </domain-config>
+</network-security-config>

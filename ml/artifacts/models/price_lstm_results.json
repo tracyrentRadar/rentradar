@@ -1,0 +1,61 @@
+{
+  "seed": 42,
+  "shape": "features",
+  "architecture": {
+    "lstm_1": 48,
+    "lstm_2": 24,
+    "dropout": 0.2,
+    "dense": 32,
+    "optimiser": "adam",
+    "learning_rate": 0.001,
+    "loss": "mse",
+    "parameters": 17441
+  },
+  "training": {
+    "epochs_run": 12,
+    "best_epoch": 2,
+    "batch_size": 64,
+    "patience": 10
+  },
+  "partition": {
+    "train": 4111,
+    "val": 744,
+    "test": 813,
+    "scheme": "stratified by locality"
+  },
+  "interval_level": 0.9,
+  "results": {
+    "lstm": {
+      "mae": 13910.728409920815,
+      "medae": 6520.0986328125,
+      "mape": 116.00591024982651,
+      "r2": -0.2693430258387215,
+      "within_10": 4.674046740467404,
+      "within_20": 10.824108241082412,
+      "interval_lo_log": -1.6722088048560688,
+      "interval_hi_log": 1.871649407693443,
+      "coverage_test_pct": 88.68388683886839,
+      "median_width_ghs": 53777.65625
+    },
+    "gradient_boosting": {
+      "mae": 6450.945447777743,
+      "medae": 2891.354229892291,
+      "mape": 39.70574635135328,
+      "r2": 0.6458299011628204,
+      "within_10": 20.29520295202952,
+      "within_20": 36.77736777367774,
+      "interval_lo_log": -0.7337446133137444,
+      "interval_hi_log": 0.7360897963723056,
+      "coverage_test_pct": 86.83886838868389,
+      "median_width_ghs": 19750.80712651816
+    },
+    "wilcoxon": {
+      "statistic": 40031.0,
+      "p_value": 3.1464995356076067e-78
+    },
+    "bootstrap_ci_mae_difference": [
+      6675.794838605539,
+      8241.247533941576
+    ]
+  }
+}

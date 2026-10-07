@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<full-backup-content>
+    <!-- Never back up the encrypted token store. A refresh token restored onto
+         another device has already been rotated server side and would trigger
+         the backend's reuse detection, revoking every session for the account. -->
+    <exclude domain="sharedpref" path="rentradar_secure_prefs.xml" />
+</full-backup-content>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--
+      Night. The palette already swapped through values-night/colors.xml, so the
+      only thing that genuinely differs is how the system draws its own chrome.
+      Anything night specific from here on goes in this file and nowhere else.
+    -->
+    <style name="Theme.RentRadar" parent="Base.Theme.RentRadar">
+
+        <!-- Light icons in the status bar, because the surface is near black. -->
+        <item name="android:windowLightStatusBar">false</item>
+
+        <!--
+          Material 3 conveys elevation in dark mode with the surfaceContainer
+          roles rather than a translucent white overlay, and our containers are
+          already tuned for it. Leaving the overlay on would wash them out.
+        -->
+        <item name="elevationOverlayEnabled">false</item>
+
+    </style>
+
+</resources>

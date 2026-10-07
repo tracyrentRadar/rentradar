@@ -1,0 +1,249 @@
+
+----------------------------------------------------------------------
+1. Files
+----------------------------------------------------------------------
+  ghana_property_centre_accra.jsonl               3,083 lines
+
+  3,083 records loaded
+
+----------------------------------------------------------------------
+2. Coverage
+----------------------------------------------------------------------
+
+  by source:
+     3,083  100.0%  ghana_property_centre
+
+  by city:
+     3,083  100.0%  Accra
+
+  by property_type:
+     1,245   40.4%  Apartment
+       472   15.3%  House
+       468   15.2%  Townhouse
+       328   10.6%  Detached Duplex
+       287    9.3%  Mini Flat
+       108    3.5%  Detached Bungalow
+        72    2.3%  Semi-detached Duplex
+        54    1.8%  Single Room Self Contained
+        27    0.9%  Terraced Duplex
+        17    0.6%  Semi-detached Bungalow
+         3    0.1%  Terraced Bungalow
+         2    0.1%  (none)
+
+  top localities:
+       572   18.6%  East Legon
+       424   13.8%  Cantonments
+       307   10.0%  Tse Addo
+       283    9.2%  Airport Residential Area
+       187    6.1%  East Airport
+       172    5.6%  Adjiringanor
+       100    3.2%  Spintex
+        94    3.0%  North Labone
+        76    2.5%  Dzorwulu
+        69    2.2%  Osu
+        68    2.2%  North Ridge
+        65    2.1%  East Legon Hills
+        53    1.7%  Oyarifa
+        48    1.6%  Ashaley Botwe
+        48    1.6%  Accra Metropolitan
+
+----------------------------------------------------------------------
+3. Field completeness
+----------------------------------------------------------------------
+  A field empty everywhere means extraction failed, not that the data
+  is missing. That distinction is the whole point of this section.
+
+  bedrooms                3,035 / 3,083   98.4%  ####################
+  bathrooms               3,058 / 3,083   99.2%  ####################
+  toilets                 3,054 / 3,083   99.1%  ####################
+  parking_spaces          2,318 / 3,083   75.2%  ###############
+  property_type           3,081 / 3,083   99.9%  ####################
+  locality                3,083 / 3,083  100.0%  ####################
+  area_sqm                1,855 / 3,083   60.2%  ############
+  furnished               1,076 / 3,083   34.9%  #######
+  asking_rent_amount      3,081 / 3,083   99.9%  ####################
+  posted_date             3,081 / 3,083   99.9%  ####################
+  agent_phone_hash        3,077 / 3,083   99.8%  ####################
+  amenities               2,806 / 3,083   91.0%  ##################
+
+----------------------------------------------------------------------
+4. Currency, and what the no-conversion rule costs
+----------------------------------------------------------------------
+  USD     2,304   74.7%
+  GHS       779   25.3%
+
+  rent_monthly_ghs populated: 777 of 3,083  (25.2%)
+  2,306 records are priced in another currency and are held back
+  from the GHS figure by binding rule 2. They are not lost: they need a
+  dated Bank of Ghana rate applied as an explicit, flagged step.
+
+----------------------------------------------------------------------
+5. Rent distribution, by currency and period
+----------------------------------------------------------------------
+  Checking for a parse off by a factor of ten, which is what a mangled
+  thousands separator looks like.
+
+  USD (n=2,304)
+    min        350 | p10       900 | median     2,100 | p90      4,500 | max     650,000
+  GHS (n=777)
+    min        700 | p10     1,800 | median     5,000 | p90     12,000 | max   8,000,000
+
+  rent_period:
+     3,083  100.0%  month
+
+----------------------------------------------------------------------
+6. Bedrooms
+----------------------------------------------------------------------
+       1     494   16.0%
+       2     788   25.6%
+       3     841   27.3%
+       4     715   23.2%
+       5     132    4.3%
+       6      37    1.2%
+       7      14    0.5%
+       8       4    0.1%
+       9       2    0.1%
+      10       3    0.1%
+      12       1    0.0%
+      14       1    0.0%
+      15       1    0.0%
+      45       1    0.0%
+      57       1    0.0%
+    None      48    1.6%
+
+----------------------------------------------------------------------
+7. Cleaning flags
+----------------------------------------------------------------------
+  Every flag is a transformation or an absence that was recorded rather
+  than applied silently. High counts are not errors by themselves.
+
+   2,615   84.8%  rent_period_from_og_title
+   2,304   74.7%  rent_not_ghs_usd
+   2,007   65.1%  furnished_unknown
+   1,228   39.8%  area_missing
+     311   10.1%  rent_period_defaulted_monthly
+     309   10.0%  rent_period_not_stated_on_page
+     159    5.2%  rent_period_from_description
+      48    1.6%  bedrooms_missing
+       8    0.3%  bedrooms_from_url_slug
+       3    0.1%  rent_above_ceiling_review
+       2    0.1%  short_let_priced_per_night
+       2    0.1%  currency_defaulted_ghs
+       2    0.1%  rent_missing
+       2    0.1%  price_absent_from_jsonld
+       2    0.1%  currency_absent_from_jsonld
+
+  records with no flags at all: 0  (0.0%)
+
+----------------------------------------------------------------------
+8. Amenities
+----------------------------------------------------------------------
+  39 distinct amenities across the corpus
+  Only those on a decent share of listings are usable as features;
+  a feature present on 2% of rows is noise with a column heading.
+
+     1,701   55.2%  Fitted kitchen
+     1,578   51.2%  En-suite bedrooms
+     1,260   40.9%  Security gate
+     1,235   40.1%  Air conditioning
+     1,047   34.0%  Security / gateman
+     1,038   33.7%  Swimming pool
+       981   31.8%  Car park
+       952   30.9%  Tiled floors
+       893   29.0%  Built-in wardrobes
+       871   28.3%  Prepaid meter
+       798   25.9%  Water heater
+       791   25.7%  Standby generator
+       789   25.6%  POP ceiling
+       749   24.3%  Boys' quarters (BQ)
+       714   23.2%  Balcony
+       692   22.4%  24/7 power supply
+       668   21.7%  Guest toilet
+       569   18.5%  Electric fence
+       542   17.6%  Gym
+       474   15.4%  Perimeter fencing
+       467   15.1%  CCTV surveillance
+       421   13.7%  High-speed internet / WiFi
+       404   13.1%  Fire safety
+       398   12.9%  Treated water
+       375   12.2%  Borehole
+
+----------------------------------------------------------------------
+9. Duplicates
+----------------------------------------------------------------------
+  same source and listing id more than once: 0
+  same URL more than once:                   0
+  same city, locality, beds, baths and rent:  1313  possible relistings
+
+  distinct agent numbers: 66
+  most listings from one number: 882, 434, 233, 201, 130
+  A number carrying a large share of a market is a fraud-model feature,
+  not a problem with the crawl.
+
+----------------------------------------------------------------------
+10. Posting dates
+----------------------------------------------------------------------
+  3,081 records carry a date
+  earliest 2020-07-07   latest 2026-10-02   span 2278 days
+
+  by month:
+    2020-07      2  
+    2021-08     12  #
+    2022-04      2  
+    2022-05      8  #
+    2022-06      7  #
+    2022-07      3  
+    2022-08      2  
+    2022-09      1  
+    2022-10      2  
+    2022-11      9  #
+    2022-12      2  
+    2023-01      6  #
+    2023-02      2  
+    2023-03      4  
+    2023-04      8  #
+    2023-06      3  
+    2023-07      7  #
+    2023-08      2  
+    2023-09      6  #
+    2023-10      2  
+    2023-11      4  
+    2023-12      2  
+    2024-01      3  
+    2024-02      5  
+    2024-03     12  #
+    2024-04     28  ###
+    2024-05     52  #####
+    2024-06     31  ###
+    2024-07     57  #####
+    2024-08     78  #######
+    2024-09     43  ####
+    2024-10     59  ######
+    2024-11     41  ####
+    2024-12     41  ####
+    2025-01     78  #######
+    2025-02     46  ####
+    2025-03     56  #####
+    2025-04     48  #####
+    2025-05     44  ####
+    2025-06     68  ######
+    2025-07    134  #############
+    2025-08     58  #####
+    2025-09     88  ########
+    2025-10    105  ##########
+    2025-11    171  ################
+    2025-12     96  #########
+    2026-01     66  ######
+    2026-02    113  ###########
+    2026-03    142  #############
+    2026-04    130  ############
+    2026-05    155  ###############
+    2026-06    131  ############
+    2026-07    182  #################
+    2026-08    165  ###############
+    2026-09    426  ########################################
+    2026-10     33  ###
+
+  The span exceeds 100 days, so a backwards index can be built from
+  this crawl alone. Survivorship bias has to be stated: only listings
+  still live today are visible, so older months are a filtered sample.

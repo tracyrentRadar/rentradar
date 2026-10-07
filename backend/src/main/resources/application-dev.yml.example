@@ -1,0 +1,23 @@
+# ============================================================
+# DEV PROFILE TEMPLATE - application-dev.yml.example
+# ============================================================
+#
+# To set up local development:
+# 1. Copy this file in the same folder
+# 2. Rename the copy to: application-dev.yml
+# 3. Replace the placeholder values below with your real credentials
+# 4. NEVER commit application-dev.yml to git
+#    (it is already in .gitignore)
+# ============================================================
+
+spring:
+  data:
+    mongodb:
+      # Replace with your actual MongoDB Atlas connection string
+      # Format: mongodb+srv://USER:PASSWORD@CLUSTER.mongodb.net/?appName=APPNAME
+      uri: mongodb+srv://YOUR_USERNAME:YOUR_PASSWORD@YOUR_CLUSTER.mongodb.net/?appName=RentRadar
+
+logging:
+  level:
+    org.springframework.data.mongodb: DEBUG
+    com.rentradar.backend: DEBUG

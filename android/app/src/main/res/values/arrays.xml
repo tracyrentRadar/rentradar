@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Shown in the Market dropdown. -->
+    <string-array name="rr_market_labels">
+        <item>Ghana · GHS</item>
+    </string-array>
+
+    <!-- Sent to the backend, index for index with the labels above. Becomes a
+         server fed list once GET /api/v1/markets exists. -->
+    <string-array name="rr_market_ids">
+        <item>GH</item>
+    </string-array>
+
+
+    <!--
+  These three lists are not design choices. They are the exact vocabulary
+  in data/features/feature_spec.json, which is what the model was trained
+  on. A value offered here that is not in that file becomes "other" at
+  serving time and the feature is wasted, silently. If the model is
+  retrained and the spec changes, these change with it.
+-->
+
+    <string-array name="area_units">
+        <item>sqm</item>
+        <item>sqft</item>
+    </string-array>
+
+    <string-array name="localities">
+        <item>Abelemkpe</item>
+        <item>Accra Metropolitan</item>
+        <item>Achimota</item>
+        <item>Adenta Municipal</item>
+        <item>Adjiringanor</item>
+        <item>Airport Residential Area</item>
+        <item>Ashaley Botwe</item>
+        <item>Cantonments</item>
+        <item>Dzorwulu</item>
+        <item>East Airport</item>
+        <item>East Legon</item>
+        <item>East Legon Hills</item>
+        <item>Haatso</item>
+        <item>North Labone</item>
+        <item>North Legon</item>
+        <item>North Ridge</item>
+        <item>Osu</item>
+        <item>Oyarifa</item>
+        <item>Spintex</item>
+        <item>Tse Addo</item>
+        <item>West Airport</item>
+    </string-array>
+
+    <string-array name="property_types">
+        <item>Apartment</item>
+        <item>Detached Bungalow</item>
+        <item>Detached Duplex</item>
+        <item>House</item>
+        <item>Mini Flat</item>
+        <item>Semi-detached Bungalow</item>
+        <item>Semi-detached Duplex</item>
+        <item>Single Room Self Contained</item>
+        <item>Terraced Bungalow</item>
+        <item>Terraced Duplex</item>
+        <item>Townhouse</item>
+    </string-array>
+
+    <!-- Apostrophe is escaped. An unescaped one is a build error in XML resources. -->
+    <string-array name="amenities">
+        <item>24/7 power supply</item>
+        <item>Air conditioning</item>
+        <item>Balcony</item>
+        <item>Borehole</item>
+        <item>Boys\' quarters (BQ)</item>
+        <item>Built-in wardrobes</item>
+        <item>Burglar proof</item>
+        <item>CCTV surveillance</item>
+        <item>Car park</item>
+        <item>Electric fence</item>
+        <item>En-suite bedrooms</item>
+        <item>Fire safety</item>
+        <item>Fitted kitchen</item>
+        <item>Guest toilet</item>
+        <item>Gym</item>
+        <item>High-speed internet / WiFi</item>
+        <item>Landscaped garden</item>
+        <item>Outdoor lighting</item>
+        <item>POP ceiling</item>
+        <item>Perimeter fencing</item>
+        <item>Prepaid meter</item>
+        <item>Security / gateman</item>
+        <item>Security gate</item>
+        <item>Standby generator</item>
+        <item>Swimming pool</item>
+        <item>Tiled floors</item>
+        <item>Treated water</item>
+        <item>Water heater</item>
+    </string-array>
+
+    <string-array name="counts_1_to_10">
+        <item>1</item><item>2</item><item>3</item><item>4</item><item>5</item>
+        <item>6</item><item>7</item><item>8</item><item>9</item><item>10</item>
+    </string-array>
+
+    <string-array name="counts_0_to_10">
+        <item>0</item><item>1</item><item>2</item><item>3</item><item>4</item><item>5</item>
+        <item>6</item><item>7</item><item>8</item><item>9</item><item>10</item>
+    </string-array>
+
+</resources>

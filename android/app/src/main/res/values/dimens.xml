@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Corner radii. Deliberately shallow. The largest surface in the app
+         rounds at 10dp, which reads as crisp rather than bubbly. -->
+    <dimen name="shape_xs">2dp</dimen>
+    <dimen name="shape_sm">3dp</dimen>
+    <dimen name="shape_md">4dp</dimen>
+    <dimen name="shape_lg">6dp</dimen>
+    <dimen name="shape_xl">8dp</dimen>
+    <dimen name="shape_xxl">10dp</dimen>
+
+    <!-- Spacing scale. Every margin and padding in the app comes from here. -->
+    <dimen name="content_max_width">9999dp</dimen>
+
+    <!-- Component heights -->
+    <dimen name="height_button">48dp</dimen>
+    <dimen name="height_field">56dp</dimen>
+    <dimen name="height_app_bar">56dp</dimen>
+    <dimen name="height_list_item">72dp</dimen>
+    <dimen name="height_chip">32dp</dimen>
+    <dimen name="height_bottom_nav">80dp</dimen>
+
+    <!-- Elevation. Flat by default, cards carry an outline instead of a shadow. -->
+    <dimen name="elevation_none">0dp</dimen>
+    <dimen name="elevation_raised">2dp</dimen>
+
+    <dimen name="screen_margin">16dp</dimen>
+    <dimen name="stroke_width">1dp</dimen>
+
+    <dimen name="space_4">4dp</dimen>
+    <dimen name="space_8">8dp</dimen>
+    <dimen name="space_12">12dp</dimen>
+    <dimen name="space_16">16dp</dimen>
+    <dimen name="space_20">20dp</dimen>
+    <dimen name="space_32">32dp</dimen>
+    <dimen name="radius_12">12dp</dimen>
+    <dimen name="radius_16">16dp</dimen>
+    <dimen name="range_bar_height">28dp</dimen>
+    <dimen name="range_track_height">8dp</dimen>
+    <dimen name="range_notch_width">3dp</dimen>
+    <dimen name="range_pin_width">2dp</dimen>
+    <dimen name="space_48">48dp</dimen>
+
+
+    <!--
+  Cards are squarer than the Material 3 default of 12dp to 16dp. A small
+  radius plus a hairline shadow reads as a document, which is what a price
+  report is, rather than a social card.
+-->
+    <dimen name="radius_card">10dp</dimen>
+    <dimen name="radius_banner">8dp</dimen>
+
+    <!-- Just enough to separate the card from the page. 2dp already looks like a dialog. -->
+    <dimen name="card_elevation">1dp</dimen>
+
+    <dimen name="space_24">24dp</dimen>
+
+    <dimen name="content_gutter">16dp</dimen>
+
+</resources>

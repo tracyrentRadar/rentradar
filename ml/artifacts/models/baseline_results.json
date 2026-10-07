@@ -1,0 +1,162 @@
+{
+  "spec_version": "v2",
+  "n_train": 4111,
+  "n_val": 744,
+  "n_test": 813,
+  "n_features": 124,
+  "split": "stratified by locality",
+  "seed": 42,
+  "results": {
+    "median": {
+      "val": {
+        "mae_ghs": 13762.175873655911,
+        "median_ae_ghs": 8079.0000000000055,
+        "rmse_ghs": 21762.477724758148,
+        "mape_pct": 143.23574262047663,
+        "r2": -0.15970052713628013,
+        "within_10pct": 6.317204301075269,
+        "within_20pct": 10.080645161290322
+      },
+      "test": {
+        "mae_ghs": 13674.835793357932,
+        "median_ae_ghs": 8079.0000000000055,
+        "rmse_ghs": 21247.685763420104,
+        "mape_pct": 147.96761214334447,
+        "r2": -0.15217803556145748,
+        "within_10pct": 5.166051660516605,
+        "within_20pct": 9.471094710947108
+      }
+    },
+    "locality_median": {
+      "val": {
+        "mae_ghs": 9604.93840906734,
+        "median_ae_ghs": 6155.0,
+        "rmse_ghs": 16501.691602692295,
+        "mape_pct": 77.10117958289796,
+        "r2": 0.3332145596730508,
+        "within_10pct": 10.21505376344086,
+        "within_20pct": 23.655913978494624
+      },
+      "test": {
+        "mae_ghs": 9127.583686802398,
+        "median_ae_ghs": 5228.000000000011,
+        "rmse_ghs": 15392.29776418178,
+        "mape_pct": 71.09121680129871,
+        "r2": 0.39535114538228633,
+        "within_10pct": 9.10209102091021,
+        "within_20pct": 22.509225092250922
+      }
+    },
+    "ridge": {
+      "val": {
+        "mae_ghs": 6574.076213277913,
+        "median_ae_ghs": 2903.460262859173,
+        "rmse_ghs": 13056.108344574173,
+        "mape_pct": 37.264800350012344,
+        "r2": 0.5825959428209005,
+        "within_10pct": 17.338709677419356,
+        "within_20pct": 37.76881720430107
+      },
+      "test": {
+        "mae_ghs": 10953.788944614691,
+        "median_ae_ghs": 2806.8003522870767,
+        "rmse_ghs": 108655.78907183075,
+        "mape_pct": 58.20082782034517,
+        "r2": -29.130203312362248,
+        "within_10pct": 16.728167281672818,
+        "within_20pct": 35.30135301353013
+      }
+    },
+    "gradient_boosting": {
+      "val": {
+        "mae_ghs": 5892.213425259535,
+        "median_ae_ghs": 2635.523434289041,
+        "rmse_ghs": 11996.574850237132,
+        "mape_pct": 34.968623879923896,
+        "r2": 0.647593661261879,
+        "within_10pct": 20.698924731182796,
+        "within_20pct": 41.53225806451613
+      },
+      "test": {
+        "mae_ghs": 5690.550777343107,
+        "median_ae_ghs": 2530.2140562296154,
+        "rmse_ghs": 10728.005595447465,
+        "mape_pct": 33.92835603839899,
+        "r2": 0.706279468889551,
+        "within_10pct": 19.803198031980322,
+        "within_20pct": 42.435424354243544
+      }
+    },
+    "random_forest": {
+      "val": {
+        "mae_ghs": 6304.667189452813,
+        "median_ae_ghs": 2868.1002030780633,
+        "rmse_ghs": 12841.808470136406,
+        "mape_pct": 39.28487652907917,
+        "r2": 0.5961858322594205,
+        "within_10pct": 22.446236559139784,
+        "within_20pct": 40.18817204301075
+      },
+      "test": {
+        "mae_ghs": 6411.061663475488,
+        "median_ae_ghs": 3004.9440650923643,
+        "rmse_ghs": 11690.541427452368,
+        "mape_pct": 39.75381563311228,
+        "r2": 0.6512087570874063,
+        "within_10pct": 18.57318573185732,
+        "within_20pct": 38.13038130381304
+      }
+    }
+  },
+  "best": "gradient_boosting",
+  "top_features": [
+    {
+      "column": "num__toilets",
+      "importance": 0.3374424055058369
+    },
+    {
+      "column": "furn__yes",
+      "importance": 0.17346184083896066
+    },
+    {
+      "column": "num__bathrooms",
+      "importance": 0.10088791390990495
+    },
+    {
+      "column": "am__Swimming pool",
+      "importance": 0.06340323795224471
+    },
+    {
+      "column": "num__bedrooms",
+      "importance": 0.05328421521865541
+    },
+    {
+      "column": "num__amenity_count",
+      "importance": 0.04094828582741807
+    },
+    {
+      "column": "loc__Cantonments",
+      "importance": 0.028093412733949528
+    },
+    {
+      "column": "type__Apartment",
+      "importance": 0.02387374759106024
+    },
+    {
+      "column": "loc__other",
+      "importance": 0.015439881487722013
+    },
+    {
+      "column": "am__Air Conditioning",
+      "importance": 0.014762372636453648
+    },
+    {
+      "column": "loc__East Legon",
+      "importance": 0.00987688193365211
+    },
+    {
+      "column": "loc__Airport Residential Area",
+      "importance": 0.008343396640132367
+    }
+  ]
+}

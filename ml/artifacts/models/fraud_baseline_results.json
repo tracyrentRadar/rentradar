@@ -1,0 +1,24 @@
+{
+  "model": "IsolationForest",
+  "features": [
+    "below_market",
+    "bath_per_bed",
+    "toilet_per_bed",
+    "amenity_count",
+    "amenity_excess",
+    "agent_locality_spread",
+    "agent_volume_log",
+    "missing_fields"
+  ],
+  "n_estimators": 300,
+  "random_state": 42,
+  "contamination": 0.12699228791773778,
+  "contamination_basis": "share asking below 0.6 of cell median",
+  "rows": 5675,
+  "agents": 279,
+  "train_rows": 3423,
+  "test_rows": 2252,
+  "flagged": 682,
+  "score_ratio_correlation": -0.007009573208744942,
+  "note": "F1 is not computable until a labelled sample exists. Run 'sample', label by hand, then run 'score'."
+}

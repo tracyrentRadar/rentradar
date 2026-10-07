@@ -1,0 +1,46 @@
+spring:
+  application:
+    name: RentRadarBackend
+
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:dev}
+
+  data:
+    mongodb:
+      database: rentradar
+
+server:
+  port: 8080
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  api-docs:
+    path: /v3/api-docs
+
+rentradar:
+  reference-data:
+    markets: [ GH ]
+    locality-radius-metres: 20000
+    max-cities-per-market: 10
+    valid-sources: [ meqasa, jiji, tonaton, field_survey ]
+    default-area-unit: SQM
+  restcountries:
+    api-key: ${RESTCOUNTRIES_API_KEY:}
+
+  ml:
+    base-url: http://127.0.0.1:8000
+    connect-timeout: 2s
+    read-timeout: 10s
+    seed-stubs: true
+
+  jwt:
+    issuer: rentradar
+    access-token-minutes: 15
+    refresh-token-days: 14

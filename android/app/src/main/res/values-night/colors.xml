@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- RentRadar dark palette. Same hues, inverted tones. Warm, never blue grey. -->
+
+    <color name="md_primary">#E7BE9B</color>
+    <color name="md_on_primary">#43290F</color>
+    <color name="md_primary_container">#5E4229</color>
+    <color name="md_on_primary_container">#FFDDC2</color>
+
+    <color name="md_secondary">#D6C3B2</color>
+    <color name="md_on_secondary">#3A2E22</color>
+    <color name="md_secondary_container">#52453A</color>
+    <color name="md_on_secondary_container">#F3DFCD</color>
+
+    <color name="md_tertiary">#BCCBB0</color>
+    <color name="md_on_tertiary">#273421</color>
+    <color name="md_tertiary_container">#3D4B36</color>
+    <color name="md_on_tertiary_container">#D8E7CC</color>
+
+    <color name="md_error">#F2B8B5</color>
+    <color name="md_on_error">#601410</color>
+    <color name="md_error_container">#8C1D18</color>
+    <color name="md_on_error_container">#F9DEDC</color>
+
+    <color name="md_surface">#17120E</color>
+    <color name="md_on_surface">#EBE1D8</color>
+    <color name="md_surface_variant">#4D443B</color>
+    <color name="md_on_surface_variant">#CFC3B6</color>
+
+    <color name="md_surface_container_lowest">#110D0A</color>
+    <color name="md_surface_container_low">#1F1A15</color>
+    <color name="md_surface_container">#231D18</color>
+    <color name="md_surface_container_high">#2E2721</color>
+    <color name="md_surface_container_highest">#39312A</color>
+
+    <color name="md_outline">#998D81</color>
+    <color name="md_outline_variant">#4D443B</color>
+
+    <color name="md_inverse_surface">#EBE1D8</color>
+    <color name="md_inverse_on_surface">#332D27</color>
+    <color name="md_inverse_primary">#7A5A43</color>
+    <color name="md_scrim">#000000</color>
+
+    <color name="rr_success">#A6C79A</color>
+    <color name="rr_warning">#E9B877</color>
+
+    <color name="risk_ok">#4ED6A8</color>
+    <color name="risk_ok_container">#10342B</color>
+    <color name="risk_watch">#F0B429</color>
+    <color name="risk_watch_container">#3A2A0C</color>
+
+</resources>

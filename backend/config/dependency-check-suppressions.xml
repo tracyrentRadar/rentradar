@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  OWASP Dependency-Check suppressions.
+
+  A suppression is a documented decision, not a way to make CI green. Each entry
+  must state why the finding does not apply (false positive CPE match, vulnerable
+  code path not reachable, not exploitable in this deployment) and should carry an
+  until date so it is re-reviewed. Example:
+
+  <suppress until="2026-12-31Z">
+      <notes>False positive: CPE for an unrelated product matched this jar's name.</notes>
+      <packageUrl regex="true">^pkg:maven/org\.example/library@.*$</packageUrl>
+      <cve>CVE-0000-00000</cve>
+  </suppress>
+-->
+<suppressions xmlns="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.4.xsd">
+</suppressions>

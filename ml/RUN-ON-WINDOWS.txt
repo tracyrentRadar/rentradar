@@ -1,0 +1,47 @@
+RentRadar collector, laptop side
+================================
+
+The crawl runs here, not on the server. A CDN blocks AWS addresses from
+ghanapropertycentre.com; your home connection in Accra is not blocked. The
+server still does training and serving, it just cannot fetch.
+
+One-time
+--------
+    py -m pip install requests beautifulsoup4 lxml
+
+Open PowerShell in THIS folder, the one containing "rentradar" and "data".
+
+1. Refresh the URL list, two requests:
+
+       py -m rentradar.collect.gpc urls
+
+2. See what would be collected, no requests at all:
+
+       py -m rentradar.collect.gpc plan
+
+3. Collect. Accra first, since that is where the listings are:
+
+       py -m rentradar.collect.gpc crawl --city Accra --limit 400
+
+   One request every five seconds, so 400 listings is about 35 minutes.
+   Safe to stop with Ctrl+C; records already written are kept and the next
+   run skips them. Run it again to take the next 400.
+
+       py -m rentradar.collect.gpc crawl --city Kumasi --limit 50
+       py -m rentradar.collect.gpc crawl --city Tema   --limit 100
+
+Records land in data\records\ as one JSON object per line.
+Every session appends a row to data\collection_log.csv whether it succeeded
+or failed. Raw pages are kept under data\archive\ so a parsing decision can be
+revisited without crawling anyone a second time.
+
+Send the records to the server
+------------------------------
+    scp -i $HOME\Downloads\rentradar-key.pem -r data\records ubuntu@16.171.71.239:~/rentradar-ml/data/
+
+What not to do
+--------------
+Do not remove the delay, do not run two of these at once, and do not change
+the User-Agent to look like a browser. The crawler identifies itself and your
+university address is in it, which is the whole basis on which this is
+defensible.

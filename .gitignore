@@ -1,0 +1,69 @@
+# Secrets. None of this ever reaches git history.
+.env
+.env.*
+!.env.example
+**/application-dev.yml
+**/application-prod.yml
+**/application-local.yml
+!**/application-dev.yml.example
+!**/application-prod.yml.example
+*.pem
+*.key
+*.p12
+*.jks
+id_rsa*
+rentradar-key*
+secrets/
+
+# Collected data and model binaries.
+# Agent names and phone numbers are in here, it does not belong in a
+# repository. Results JSON is kept, it is evidence for chapter six.
+ml/data/
+ml/artifacts/*
+!ml/artifacts/models/
+ml/artifacts/models/*
+!ml/artifacts/models/*.json
+
+# Raw page captures can carry contact details. The robots.txt snapshot
+# and the URL list are the compliance evidence, those stay.
+docs/collection-evidence/*.html
+docs/collection-evidence/*.json
+
+# Java and Maven
+target/
+*.class
+*.jar
+!**/.mvn/wrapper/maven-wrapper.jar
+!**/gradle/wrapper/gradle-wrapper.jar
+
+# Android and Gradle
+.gradle/
+build/
+local.properties
+captures/
+.cxx/
+*.apk
+*.aab
+*.keystore
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+*.egg-info/
+.ipynb_checkpoints/
+
+# IDE and OS
+.idea/
+*.iml
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+logs/

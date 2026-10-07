@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="ShapeAppearance.RentRadar.ExtraSmall" parent="ShapeAppearance.Material3.Corner.ExtraSmall">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/shape_xs</item>
+    </style>
+
+    <style name="ShapeAppearance.RentRadar.Small" parent="ShapeAppearance.Material3.Corner.Small">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/shape_md</item>
+    </style>
+
+    <style name="ShapeAppearance.RentRadar.Medium" parent="ShapeAppearance.Material3.Corner.Medium">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/shape_xl</item>
+    </style>
+
+    <style name="ShapeAppearance.RentRadar.Large" parent="ShapeAppearance.Material3.Corner.Large">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/shape_xxl</item>
+    </style>
+
+    <style name="Base.Theme.RentRadar" parent="Theme.Material3.DayNight.NoActionBar">
+
+        <item name="colorPrimary">@color/md_primary</item>
+        <item name="colorOnPrimary">@color/md_on_primary</item>
+        <item name="colorPrimaryContainer">@color/md_primary_container</item>
+        <item name="colorOnPrimaryContainer">@color/md_on_primary_container</item>
+
+        <item name="colorSecondary">@color/md_secondary</item>
+        <item name="colorOnSecondary">@color/md_on_secondary</item>
+        <item name="colorSecondaryContainer">@color/md_secondary_container</item>
+        <item name="colorOnSecondaryContainer">@color/md_on_secondary_container</item>
+
+        <item name="colorTertiary">@color/md_tertiary</item>
+        <item name="colorOnTertiary">@color/md_on_tertiary</item>
+        <item name="colorTertiaryContainer">@color/md_tertiary_container</item>
+        <item name="colorOnTertiaryContainer">@color/md_on_tertiary_container</item>
+
+        <item name="colorError">@color/md_error</item>
+        <item name="colorOnError">@color/md_on_error</item>
+        <item name="colorErrorContainer">@color/md_error_container</item>
+        <item name="colorOnErrorContainer">@color/md_on_error_container</item>
+
+        <item name="colorSurface">@color/md_surface</item>
+        <item name="colorOnSurface">@color/md_on_surface</item>
+        <item name="colorSurfaceVariant">@color/md_surface_variant</item>
+        <item name="colorOnSurfaceVariant">@color/md_on_surface_variant</item>
+
+        <item name="colorSurfaceContainerLowest">@color/md_surface_container_lowest</item>
+        <item name="colorSurfaceContainerLow">@color/md_surface_container_low</item>
+        <item name="colorSurfaceContainer">@color/md_surface_container</item>
+        <item name="colorSurfaceContainerHigh">@color/md_surface_container_high</item>
+        <item name="colorSurfaceContainerHighest">@color/md_surface_container_highest</item>
+
+        <item name="colorOutline">@color/md_outline</item>
+        <item name="colorOutlineVariant">@color/md_outline_variant</item>
+
+        <item name="colorSurfaceInverse">@color/md_inverse_surface</item>
+        <item name="colorOnSurfaceInverse">@color/md_inverse_on_surface</item>
+        <item name="colorPrimaryInverse">@color/md_inverse_primary</item>
+        <item name="android:colorBackground">@color/md_surface</item>
+        <item name="scrimBackground">@color/md_scrim</item>
+
+        <item name="textAppearanceDisplayLarge">@style/TextAppearance.RentRadar.DisplaySmall</item>
+        <item name="textAppearanceDisplayMedium">@style/TextAppearance.RentRadar.DisplaySmall</item>
+        <item name="textAppearanceDisplaySmall">@style/TextAppearance.RentRadar.DisplaySmall</item>
+        <item name="textAppearanceHeadlineLarge">@style/TextAppearance.RentRadar.HeadlineLarge</item>
+        <item name="textAppearanceHeadlineMedium">@style/TextAppearance.RentRadar.HeadlineMedium</item>
+        <item name="textAppearanceHeadlineSmall">@style/TextAppearance.RentRadar.HeadlineSmall</item>
+        <item name="textAppearanceTitleLarge">@style/TextAppearance.RentRadar.TitleLarge</item>
+        <item name="textAppearanceTitleMedium">@style/TextAppearance.RentRadar.TitleMedium</item>
+        <item name="textAppearanceTitleSmall">@style/TextAppearance.RentRadar.TitleSmall</item>
+        <item name="textAppearanceBodyLarge">@style/TextAppearance.RentRadar.BodyLarge</item>
+        <item name="textAppearanceBodyMedium">@style/TextAppearance.RentRadar.BodyMedium</item>
+        <item name="textAppearanceBodySmall">@style/TextAppearance.RentRadar.BodySmall</item>
+        <item name="textAppearanceLabelLarge">@style/TextAppearance.RentRadar.LabelLarge</item>
+        <item name="textAppearanceLabelMedium">@style/TextAppearance.RentRadar.LabelMedium</item>
+        <item name="textAppearanceLabelSmall">@style/TextAppearance.RentRadar.LabelSmall</item>
+
+        <item name="shapeAppearanceCornerExtraSmall">@style/ShapeAppearance.RentRadar.ExtraSmall</item>
+        <item name="shapeAppearanceCornerSmall">@style/ShapeAppearance.RentRadar.Small</item>
+        <item name="shapeAppearanceCornerMedium">@style/ShapeAppearance.RentRadar.Medium</item>
+        <item name="shapeAppearanceCornerLarge">@style/ShapeAppearance.RentRadar.Large</item>
+        <item name="shapeAppearanceCornerExtraLarge">@style/ShapeAppearance.RentRadar.Large</item>
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.RentRadar.Small</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.RentRadar.Medium</item>
+        <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.RentRadar.Large</item>
+
+        <!-- Component defaults. This is what keeps buttons from going pill shaped. -->
+        <item name="materialButtonStyle">@style/Widget.RentRadar.Button</item>
+        <item name="materialButtonOutlinedStyle">@style/Widget.RentRadar.Button.Outlined</item>
+        <item name="borderlessButtonStyle">@style/Widget.RentRadar.Button.Text</item>
+        <item name="textInputStyle">@style/Widget.RentRadar.TextInputLayout</item>
+        <item name="materialCardViewStyle">@style/Widget.RentRadar.CardView</item>
+        <item name="chipStyle">@style/Widget.RentRadar.Chip</item>
+
+        <item name="android:forceDarkAllowed">false</item>
+        <item name="android:statusBarColor">@color/md_surface</item>
+        <item name="android:navigationBarColor">@color/md_surface</item>
+
+    </style>
+
+    <style name="Theme.RentRadar" parent="Base.Theme.RentRadar">
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+
+</resources>

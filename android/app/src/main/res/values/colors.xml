@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- RentRadar light palette. Warm beige and brown, Material 3 colour roles. -->
+
+    <color name="md_primary">#7A5A43</color>
+    <color name="md_on_primary">#FFFFFF</color>
+    <color name="md_primary_container">#F2E2D1</color>
+    <color name="md_on_primary_container">#2B1A0E</color>
+
+    <color name="md_secondary">#6B5B4D</color>
+    <color name="md_on_secondary">#FFFFFF</color>
+    <color name="md_secondary_container">#EFE3D7</color>
+    <color name="md_on_secondary_container">#251A11</color>
+
+    <color name="md_tertiary">#5A6450</color>
+    <color name="md_on_tertiary">#FFFFFF</color>
+    <color name="md_tertiary_container">#DDE8D4</color>
+    <color name="md_on_tertiary_container">#182010</color>
+
+    <color name="md_error">#B3261E</color>
+    <color name="md_on_error">#FFFFFF</color>
+    <color name="md_error_container">#F9DEDC</color>
+    <color name="md_on_error_container">#410E0B</color>
+
+    <color name="md_surface">#FDFBF8</color>
+    <color name="md_on_surface">#1E1915</color>
+    <color name="md_surface_variant">#EDE3D8</color>
+    <color name="md_on_surface_variant">#6A5F55</color>
+
+    <color name="md_surface_container_lowest">#FFFFFF</color>
+    <color name="md_surface_container_low">#F8F2EA</color>
+    <color name="md_surface_container">#F4EDE4</color>
+    <color name="md_surface_container_high">#EFE7DD</color>
+    <color name="md_surface_container_highest">#E9E1D6</color>
+
+    <color name="md_outline">#C9BFB3</color>
+    <color name="md_outline_variant">#E7DFD5</color>
+
+    <color name="md_inverse_surface">#332D27</color>
+    <color name="md_inverse_on_surface">#F6EFE7</color>
+    <color name="md_inverse_primary">#E7BE9B</color>
+    <color name="md_scrim">#000000</color>
+
+    <!-- Domain colours. Used by the fraud risk bands and the forecast direction. -->
+    <color name="rr_success">#4F6B45</color>
+    <color name="rr_warning">#8C5A1E</color>
+
+
+    <color name="risk_ok">#0E8A6A</color>
+    <color name="risk_ok_container">#DFF3EC</color>
+    <color name="risk_watch">#C06A00</color>
+    <color name="risk_watch_container">#FCEEDA</color>
+
+</resources>

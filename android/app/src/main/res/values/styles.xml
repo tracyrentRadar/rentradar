@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--
+      Material 3 ships buttons and chips at shapeAppearanceCornerFull, which is
+      a pill. These pin every component to the RentRadar shape scale.
+    -->
+
+    <style name="Widget.RentRadar.Button" parent="Widget.Material3.Button">
+        <item name="shapeAppearance">@style/ShapeAppearance.RentRadar.Small</item>
+        <item name="android:minHeight">@dimen/height_button</item>
+        <item name="android:textAppearance">@style/TextAppearance.RentRadar.LabelLarge</item>
+        <item name="elevation">@dimen/elevation_none</item>
+    </style>
+
+    <style name="Widget.RentRadar.Button.Outlined" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="shapeAppearance">@style/ShapeAppearance.RentRadar.Small</item>
+        <item name="android:minHeight">@dimen/height_button</item>
+        <item name="android:textAppearance">@style/TextAppearance.RentRadar.LabelLarge</item>
+        <item name="strokeColor">@color/md_outline</item>
+        <item name="strokeWidth">@dimen/stroke_width</item>
+    </style>
+
+    <style name="Widget.RentRadar.Button.Text" parent="Widget.Material3.Button.TextButton">
+        <item name="shapeAppearance">@style/ShapeAppearance.RentRadar.ExtraSmall</item>
+        <item name="android:textAppearance">@style/TextAppearance.RentRadar.LabelLarge</item>
+    </style>
+
+    <!-- The two halves of the Tenant / Landlord control on Create account. -->
+    <style name="Widget.RentRadar.SegmentedButton" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="shapeAppearance">@style/ShapeAppearance.RentRadar.Small</item>
+        <item name="android:minHeight">@dimen/height_button</item>
+        <item name="android:textAppearance">@style/TextAppearance.RentRadar.LabelLarge</item>
+        <item name="strokeColor">@color/md_outline</item>
+        <item name="strokeWidth">@dimen/stroke_width</item>
+    </style>
+
+    <!--
+      Labels float in the border notch, which is the Material default, so
+      hintEnabled stays on. Only the corners and stroke are ours.
+    -->
+    <style name="Widget.RentRadar.TextInputLayout" parent="Widget.Material3.TextInputLayout.OutlinedBox">
+        <item name="boxCornerRadiusTopStart">@dimen/shape_md</item>
+        <item name="boxCornerRadiusTopEnd">@dimen/shape_md</item>
+        <item name="boxCornerRadiusBottomStart">@dimen/shape_md</item>
+        <item name="boxCornerRadiusBottomEnd">@dimen/shape_md</item>
+        <item name="boxStrokeWidth">@dimen/stroke_width</item>
+        <item name="boxStrokeWidthFocused">2dp</item>
+        <item name="errorTextAppearance">@style/TextAppearance.RentRadar.BodySmall</item>
+    </style>
+
+    <style name="Widget.RentRadar.TextInputLayout.Dropdown" parent="Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+        <item name="boxCornerRadiusTopStart">@dimen/shape_md</item>
+        <item name="boxCornerRadiusTopEnd">@dimen/shape_md</item>
+        <item name="boxCornerRadiusBottomStart">@dimen/shape_md</item>
+        <item name="boxCornerRadiusBottomEnd">@dimen/shape_md</item>
+        <item name="boxStrokeWidth">@dimen/stroke_width</item>
+        <item name="boxStrokeWidthFocused">2dp</item>
+    </style>
+
+    <style name="Widget.RentRadar.CardView" parent="Widget.Material3.CardView.Outlined">
+        <item name="shapeAppearance">@style/ShapeAppearance.RentRadar.Medium</item>
+        <item name="cardElevation">@dimen/elevation_none</item>
+        <item name="strokeColor">@color/md_outline_variant</item>
+        <item name="strokeWidth">@dimen/stroke_width</item>
+    </style>
+
+    <style name="Widget.RentRadar.Chip" parent="Widget.Material3.Chip.Assist">
+        <item name="shapeAppearance">@style/ShapeAppearance.RentRadar.ExtraSmall</item>
+    </style>
+
+    <style name="Widget.RentRadar.Toolbar" parent="Widget.Material3.Toolbar">
+        <item name="titleTextAppearance">@style/TextAppearance.RentRadar.TitleLarge</item>
+        <item name="titleTextColor">?attr/colorOnSurface</item>
+        <item name="android:background">?attr/colorSurface</item>
+    </style>
+
+    <string name="home_headline">Know what it should cost</string>
+    <string name="home_check_title">Check a rent</string>
+    <string name="home_check_subtitle">Takes about a minute</string>
+
+    <string name="home_outputs_heading">What you get back</string>
+    <string name="home_output_price">A fair price range for a place like that, in that area.</string>
+    <string name="home_output_risk">A note on whether the asking price looks ordinary or worth a closer look.</string>
+    <string name="home_output_trend">Which way asking prices in the area have been moving.</string>
+
+    <string name="home_recent_heading">Your recent checks</string>
+    <string name="home_recent_empty">Nothing yet. Your checks will be saved here.</string>
+
+    <!-- The small all caps label, as used by "I AM A". -->
+    <style name="TextAppearance.RentRadar.Overline" parent="TextAppearance.RentRadar.LabelSmall">
+        <item name="android:textAllCaps">true</item>
+        <item name="android:letterSpacing">0.09</item>
+        <item name="android:textColor">?attr/colorOnSurfaceVariant</item>
+    </style>
+
+</resources>
