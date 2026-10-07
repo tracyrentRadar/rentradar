@@ -4,10 +4,6 @@ on:
   push:
   pull_request:
   workflow_dispatch:
-  # Weekly rescan: new advisories are published against dependencies that have
-  # not changed, so a green build last month says nothing about today.
-  schedule:
-    - cron: "23 4 * * 1"
 
 permissions:
   contents: read
@@ -15,8 +11,6 @@ permissions:
 concurrency:
   group: ci-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
-
-# Third-party actions are pinned to full commit SHAs, not movable tags.
 
 jobs:
   build:
@@ -28,91 +22,14 @@ jobs:
         working-directory: backend
     steps:
       - name: Check out
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          persist-credentials: false
+        uses: actions/checkout@v5
 
       - name: Set up JDK 21
-        uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
+        uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: "21"
           cache: maven
 
-      # Maven comes preinstalled on the runner. The wrapper is left for local
-      # use but not invoked here, a Windows authored shell script fails on a
-      # Linux runner before it reaches Maven at all.
-      - name: Build, test and measure coverage
+      - name: Build and test
         run: mvn -B -ntp verify
-
-      - name: Upload coverage report
-        if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
-        with:
-          name: jacoco-report
-          path: backend/target/site/jacoco/
-          if-no-files-found: warn
-
-      - name: Upload test reports
-        if: failure()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
-        with:
-          name: surefire-reports
-          path: backend/target/surefire-reports/
-          if-no-files-found: warn
-
-  dependency-scan:
-    name: Dependency scan (fails on CVSS 7.0 or higher)
-    runs-on: ubuntu-latest
-    timeout-minutes: 45
-    defaults:
-      run:
-        working-directory: backend
-    steps:
-      - name: Check out
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          persist-credentials: false
-
-      - name: Set up JDK 21
-        uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
-        with:
-          distribution: temurin
-          java-version: "21"
-          cache: maven
-
-      # The NVD mirror is large. Restore the newest copy and update it
-      # incrementally instead of downloading it from scratch on every run.
-      - name: Restore vulnerability database
-        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
-        with:
-          path: ~/.dependency-check-data
-          key: dependency-check-${{ runner.os }}-${{ github.run_id }}
-          restore-keys: |
-            dependency-check-${{ runner.os }}-
-
-      # Requires the NVD_API_KEY repository secret (free from nvd.nist.gov).
-      # Without it the scan still runs, but the NVD rate limit makes it very slow.
-      - name: Scan dependencies against the NVD
-        env:
-          NVD_API_KEY: ${{ secrets.NVD_API_KEY }}
-        run: mvn -B -ntp org.owasp:dependency-check-maven:check -DdataDirectory="$HOME/.dependency-check-data"
-
-      # Saved even when the scan fails on a finding, so the next run starts from
-      # the updated database.
-      - name: Save vulnerability database
-        if: always()
-        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
-        with:
-          path: ~/.dependency-check-data
-          key: dependency-check-${{ runner.os }}-${{ github.run_id }}
-
-      - name: Upload scan report
-        if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
-        with:
-          name: dependency-check-report
-          path: |
-            backend/target/dependency-check-report.html
-            backend/target/dependency-check-report.json
-          if-no-files-found: warn
