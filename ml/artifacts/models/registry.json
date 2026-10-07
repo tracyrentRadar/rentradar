@@ -1,0 +1,91 @@
+{
+  "generated_at": "2026-10-07T13:24:30+00:00",
+  "corpus": {
+    "rows": 5668,
+    "features": 124,
+    "feature_spec_version": "v2",
+    "price_split": "price"
+  },
+  "models": {
+    "price": {
+      "version": "v2026.10.07",
+      "artefact": "price_gb.joblib",
+      "algorithm": "HistGradientBoostingRegressor",
+      "hyperparameters": {
+        "max_iter": 400,
+        "learning_rate": 0.06,
+        "max_depth": null,
+        "min_samples_leaf": 15,
+        "l2_regularization": 1.0,
+        "random_state": 42
+      },
+      "target": "log_rent_ghs_monthly",
+      "trained_on": "train + validation",
+      "scored_on": "held out test partition, fitted on train only",
+      "validation": {
+        "n": 744,
+        "r2": 0.647593661261879,
+        "r2_log": 0.8571579985732811,
+        "mae_ghs": 5892.213425259535,
+        "medae_ghs": 2635.523434289041,
+        "rmse_ghs": 11996.574850237132,
+        "mape": 34.968623879923896,
+        "within_10pct": 20.698924731182796,
+        "within_20pct": 41.53225806451613
+      },
+      "test": {
+        "n": 813,
+        "r2": 0.706279468889551,
+        "r2_log": 0.8518900969582233,
+        "mae_ghs": 5690.550777343107,
+        "medae_ghs": 2530.2140562296154,
+        "rmse_ghs": 10728.005595447465,
+        "mape": 33.92835603839899,
+        "within_10pct": 19.803198031980322,
+        "within_20pct": 42.435424354243544
+      },
+      "interval": {
+        "percent": 90.0,
+        "source": "validation residual quantiles",
+        "log_low": -0.6911327562625462,
+        "log_high": 0.674618907857762,
+        "multiplier_low": 0.5010082273065505,
+        "multiplier_high": 1.9632846410369469,
+        "measured_coverage_on_test_percent": 89.42189421894219
+      }
+    },
+    "forecast": {
+      "version": "v2026.10.07",
+      "artefact": "forecast_moving_average.json",
+      "algorithm": "six month moving average",
+      "window_months": 6,
+      "level_ghs": 20849.521666666667,
+      "mae_ghs": 2297.069814814815,
+      "mape_percent": 11.273171841473083,
+      "beat": "sequence to sequence LSTM, MAE 3,385 GHS, MAPE 16.2%"
+    },
+    "fraud": {
+      "version": "v2026.10.07",
+      "artefact": "fraud_lstm.keras",
+      "scalers": "fraud_lstm_scalers.joblib",
+      "algorithm": "LSTM autoencoder over 9 comparables x 6 channels",
+      "status": "partial",
+      "missing": "training reference set for comparable lookup at serving time",
+      "scored": {
+        "model": "LSTM autoencoder",
+        "timesteps": 9,
+        "k_comparables": 8,
+        "epochs_run": 128,
+        "contamination": 0.12660833762223367,
+        "threshold_high": 0.09477950583489603,
+        "threshold_medium": 0.02745502721518278,
+        "threshold_method": "percentile of training reconstruction error at the contamination rate",
+        "score_method": "percentile rank against the training error distribution",
+        "score_ratio_correlation": -0.1497468670621662,
+        "full_reconstruction_ratio_correlation": 0.010843776533176362,
+        "note": "F1 needs the hand-labelled sample. Run 'score' once it exists."
+      }
+    }
+  },
+  "selection_note": "Each exported model is the one that won its own comparison. The three LSTM architectures were built, trained and scored against these on identical partitions with paired significance tests. Two of the three lost and are reported as such rather than served."
+}

@@ -1,0 +1,152 @@
+{
+  "model": "six_month_moving_average",
+  "window_months": 6,
+  "series_file": "accra_month_bedrooms.jsonl",
+  "months_used": 24,
+  "period_range": [
+    "2024-10",
+    "2026-09"
+  ],
+  "level_ghs": 20849.521666666667,
+  "window_periods": [
+    "2026-04",
+    "2026-05",
+    "2026-06",
+    "2026-07",
+    "2026-08",
+    "2026-09"
+  ],
+  "window_values": [
+    20766.84,
+    20255.85,
+    19620.94,
+    21691.97,
+    22138.77,
+    20622.76
+  ],
+  "mae_ghs": 2297.069814814815,
+  "mape_percent": 11.273171841473083,
+  "series": [
+    {
+      "period": "2024-10",
+      "index_ghs": 24233.02,
+      "listings": 50
+    },
+    {
+      "period": "2024-11",
+      "index_ghs": 21947.61,
+      "listings": 34
+    },
+    {
+      "period": "2024-12",
+      "index_ghs": 25569.44,
+      "listings": 31
+    },
+    {
+      "period": "2025-01",
+      "index_ghs": 26001.46,
+      "listings": 56
+    },
+    {
+      "period": "2025-02",
+      "index_ghs": 18023.39,
+      "listings": 40
+    },
+    {
+      "period": "2025-03",
+      "index_ghs": 21307.29,
+      "listings": 48
+    },
+    {
+      "period": "2025-04",
+      "index_ghs": 24473.07,
+      "listings": 38
+    },
+    {
+      "period": "2025-05",
+      "index_ghs": 19535.25,
+      "listings": 33
+    },
+    {
+      "period": "2025-06",
+      "index_ghs": 20520.86,
+      "listings": 58
+    },
+    {
+      "period": "2025-07",
+      "index_ghs": 23355.95,
+      "listings": 116
+    },
+    {
+      "period": "2025-08",
+      "index_ghs": 16037.92,
+      "listings": 46
+    },
+    {
+      "period": "2025-09",
+      "index_ghs": 23348.32,
+      "listings": 66
+    },
+    {
+      "period": "2025-10",
+      "index_ghs": 25037.21,
+      "listings": 83
+    },
+    {
+      "period": "2025-11",
+      "index_ghs": 22344.43,
+      "listings": 149
+    },
+    {
+      "period": "2025-12",
+      "index_ghs": 23793.5,
+      "listings": 75
+    },
+    {
+      "period": "2026-01",
+      "index_ghs": 16230.55,
+      "listings": 51
+    },
+    {
+      "period": "2026-02",
+      "index_ghs": 21816.78,
+      "listings": 90
+    },
+    {
+      "period": "2026-03",
+      "index_ghs": 27739.32,
+      "listings": 117
+    },
+    {
+      "period": "2026-04",
+      "index_ghs": 20766.84,
+      "listings": 105
+    },
+    {
+      "period": "2026-05",
+      "index_ghs": 20255.85,
+      "listings": 132
+    },
+    {
+      "period": "2026-06",
+      "index_ghs": 19620.94,
+      "listings": 105
+    },
+    {
+      "period": "2026-07",
+      "index_ghs": 21691.97,
+      "listings": 162
+    },
+    {
+      "period": "2026-08",
+      "index_ghs": 22138.77,
+      "listings": 142
+    },
+    {
+      "period": "2026-09",
+      "index_ghs": 20622.76,
+      "listings": 373
+    }
+  ],
+  "note": "The monthly index is dominated by sampling noise and the ADF test finds it stationary, so there is no trend to extrapolate. The serving contract is a smoothed current level with a measured band, not a point forecast for next month."
+}
