@@ -39,13 +39,11 @@ jobs:
           java-version: "21"
           cache: maven
 
-      # Unit and Testcontainers integration tests run here; the hosted runner
-      # provides the Docker daemon Testcontainers needs. JaCoCo measures line
-      # coverage against the 80 per cent target and reports without failing.
+      # Maven comes preinstalled on the runner. The wrapper is left for local
+      # use but not invoked here, a Windows authored shell script fails on a
+      # Linux runner before it reaches Maven at all.
       - name: Build, test and measure coverage
-        run: |
-          chmod +x mvnw
-          ./mvnw -B -ntp verify
+        run: mvn -B -ntp verify
 
       - name: Upload coverage report
         if: always()
@@ -98,9 +96,7 @@ jobs:
       - name: Scan dependencies against the NVD
         env:
           NVD_API_KEY: ${{ secrets.NVD_API_KEY }}
-        run: |
-          chmod +x mvnw
-          ./mvnw -B -ntp org.owasp:dependency-check-maven:check -DdataDirectory="$HOME/.dependency-check-data"
+        run: mvn -B -ntp org.owasp:dependency-check-maven:check -DdataDirectory="$HOME/.dependency-check-data"
 
       # Saved even when the scan fails on a finding, so the next run starts from
       # the updated database.
