@@ -1,6 +1,7 @@
 package com.rentradar.backend.service;
 
 import com.rentradar.backend.domain.MarketLocation;
+import com.rentradar.backend.domain.MarketTrendForecast;
 import com.rentradar.backend.domain.ModelArtefact;
 import com.rentradar.backend.domain.PricePrediction;
 import com.rentradar.backend.domain.PropertyListing;
@@ -36,6 +37,11 @@ import java.util.concurrent.Executor;
  * What this class deliberately does not do: write fraud alerts, write audit
  * entries, update metrics. It publishes facts and listeners handle those, which
  * keeps three writes off the request path and keeps this method readable.
+ *
+ * The forecast is read from storage rather than computed. Recursive multi-step
+ * forecasting is the most expensive thing the system does and its answer changes
+ * daily, not per request, so a fourth model call here would add latency for no
+ * freshness.
  */
 @Service
 public class PredictionOrchestrator {
@@ -51,6 +57,7 @@ public class PredictionOrchestrator {
     private final MlClient ml;
     private final ApplicationEventPublisher events;
     private final Executor inferenceExecutor;
+    private final ForecastService forecasts;
 
     public PredictionOrchestrator(
             PropertyListingRepository properties,
@@ -61,7 +68,8 @@ public class PredictionOrchestrator {
             MlClient ml,
             ApplicationEventPublisher events,
             @org.springframework.beans.factory.annotation.Qualifier("inferenceExecutor")
-            Executor inferenceExecutor) {
+            Executor inferenceExecutor,
+            ForecastService forecasts) {
 
         this.properties = properties;
         this.locations = locations;
@@ -71,6 +79,7 @@ public class PredictionOrchestrator {
         this.ml = ml;
         this.events = events;
         this.inferenceExecutor = inferenceExecutor;
+        this.forecasts = forecasts;
     }
 
     public Result predict(String propertyId, String userId) {
@@ -134,10 +143,19 @@ public class PredictionOrchestrator {
                         propertyId, listing.marketId(), fraud, correlationId, now));
             }
 
+            // Read, never computed here. Absent is a valid answer: a location
+            // with no stored forecast still gets an estimate and an assessment,
+            // because a missing trend is not a reason to refuse the other two.
+            MarketTrendForecast forecast =
+                    forecasts.latestFor(listing.locationId()).orElse(null);
+            if (forecast == null) {
+                log.debug("No stored forecast for location {}", listing.locationId());
+            }
+
             log.info("Prediction {} for property {} in {} ({} ms)",
                     stored.id(), propertyId, listing.marketId(), stored.latencyMs());
 
-            return new Result(stored, fraud);
+            return new Result(stored, fraud, forecast);
 
         } finally {
             MDC.remove(CORRELATION_ID);
@@ -158,6 +176,10 @@ public class PredictionOrchestrator {
         return PriceVerdict.AT_MARKET;
     }
 
-    /** The fraud assessment is not persisted unless HIGH, so it travels alongside. */
-    public record Result(PricePrediction prediction, FraudAssessment fraud) {}
+    /**
+     * The fraud assessment is not persisted unless HIGH, so it travels alongside.
+     * The forecast is read from storage and may be null.
+     */
+    public record Result(PricePrediction prediction, FraudAssessment fraud,
+                         MarketTrendForecast forecast) {}
 }
