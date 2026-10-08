@@ -23,11 +23,14 @@ of step with what training used.
 from __future__ import annotations
 
 import json
+import logging
 import math
 from pathlib import Path
 from typing import Optional
 
 import numpy as np
+
+log = logging.getLogger("rentradar.inference")
 
 ROOT = Path(__file__).resolve().parents[1]
 FEATURES = ROOT / "data" / "features"
@@ -130,6 +133,34 @@ class Engine:
         for name, col in COLUMN_FOR.items():
             if col in self.columns:
                 self.channel_cols[name] = self.columns.index(col)
+
+        # Lower cased index of the localities the model was trained on, mapping
+        # back to the exact string the spec holds. The gateway sends a composite
+        # key like "Accra/East Legon" and the spec holds "East Legon", so the
+        # two have to be reconciled here or the locality silently encodes as
+        # nothing and the estimate collapses to a corpus average.
+        self.localities = {
+            str(name).strip().lower(): str(name)
+            for name in self.spec.get("localities", [])
+        }
+        log.info("spec holds %d localities", len(self.localities))
+
+    def resolve_locality(self, raw) -> tuple[Optional[str], str]:
+        """
+        Returns the spec's own spelling of the locality, and how it was found.
+
+        An unmatched locality is not an error: the spec keeps an 'other' bucket
+        for localities with too few observations to encode on their own, and the
+        model handles it. But it must be visible. Falling back quietly is what
+        turned a 24,000 estimate into a 12,000 one without a single warning.
+        """
+        if raw is None or not str(raw).strip():
+            return None, "missing"
+        name = str(raw).split("/")[-1].strip()
+        match = self.localities.get(name.lower())
+        if match:
+            return match, "matched"
+        return name, "unknown"
 
     def _load_price(self) -> None:
         import joblib
@@ -289,12 +320,19 @@ class Engine:
         not_stated, since there is no trained population behind an explicit
         false to map onto.
         """
+        locality, how = self.resolve_locality(f.locality_key)
+        if how != "matched":
+            log.warning(
+                "locality %r was %s against the trained set; it will encode as "
+                "'other' and the estimate will be far less specific",
+                f.locality_key, how)
+
         return {
             "bedrooms": f.bedrooms,
             "bathrooms": f.bathrooms,
             "toilets": f.toilets,
             "property_type": f.property_type,
-            "locality": f.locality_key,
+            "locality": locality,
             "furnished": True if f.furnished is True else None,
             "amenities": list(f.amenities or []),
         }

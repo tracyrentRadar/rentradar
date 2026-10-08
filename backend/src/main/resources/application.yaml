@@ -38,7 +38,10 @@ rentradar:
     base-url: http://127.0.0.1:8000
     connect-timeout: 2s
     read-timeout: 10s
-    seed-stubs: true
+    # Stubs off. The trained artefacts own the CHAMPION slot now.
+    seed-stubs: false
+    register-models: true
+    model-version: v2026.10.07
 
   jwt:
     issuer: rentradar
