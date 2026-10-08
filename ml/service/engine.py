@@ -139,11 +139,17 @@ class Engine:
         # key like "Accra/East Legon" and the spec holds "East Legon", so the
         # two have to be reconciled here or the locality silently encodes as
         # nothing and the estimate collapses to a corpus average.
-        self.localities = {
-            str(name).strip().lower(): str(name)
-            for name in self.spec.get("localities", [])
-        }
-        log.info("spec holds %d localities", len(self.localities))
+        self.localities = self._index(self.spec.get("localities"))
+        self.property_types = self._index(self.spec.get("property_types"))
+        self.amenity_names = self._index(self.spec.get("amenities"))
+        log.info("spec holds %d localities, %d property types, %d amenities",
+                 len(self.localities), len(self.property_types),
+                 len(self.amenity_names))
+
+    @staticmethod
+    def _index(values) -> dict:
+        """Lower cased lookup back to the spec's own spelling."""
+        return {str(v).strip().lower(): str(v) for v in (values or [])}
 
     def resolve_locality(self, raw) -> tuple[Optional[str], str]:
         """
@@ -161,6 +167,32 @@ class Engine:
         if match:
             return match, "matched"
         return name, "unknown"
+
+    def resolve_property_type(self, raw) -> tuple[Optional[str], str]:
+        """The gateway stores the type as published, so casing varies."""
+        if raw is None or not str(raw).strip():
+            return None, "missing"
+        name = str(raw).strip()
+        match = self.property_types.get(name.lower())
+        return (match, "matched") if match else (name, "unknown")
+
+    def resolve_amenities(self, raw) -> tuple[list, list]:
+        """
+        Normalises spelling to the spec's, keeps unrecognised ones in the list
+        and reports them. They are kept rather than dropped because the fraud
+        model reads amenity_count, and silently shortening the list would move
+        a number the caller never touched.
+        """
+        out, unknown = [], []
+        for item in (raw or []):
+            name = str(item).strip()
+            if not name:
+                continue
+            match = self.amenity_names.get(name.lower())
+            out.append(match if match else name)
+            if not match:
+                unknown.append(name)
+        return out, unknown
 
     def _load_price(self) -> None:
         import joblib
@@ -327,14 +359,26 @@ class Engine:
                 "'other' and the estimate will be far less specific",
                 f.locality_key, how)
 
+        property_type, type_how = self.resolve_property_type(f.property_type)
+        if type_how != "matched":
+            log.warning(
+                "property type %r was %s against the trained set; it encodes as "
+                "nothing", f.property_type, type_how)
+
+        amenities, unknown = self.resolve_amenities(f.amenities)
+        if unknown:
+            log.warning(
+                "amenities not in the trained set, encoding as nothing: %s",
+                ", ".join(unknown))
+
         return {
             "bedrooms": f.bedrooms,
             "bathrooms": f.bathrooms,
             "toilets": f.toilets,
-            "property_type": f.property_type,
+            "property_type": property_type,
             "locality": locality,
             "furnished": True if f.furnished is True else None,
-            "amenities": list(f.amenities or []),
+            "amenities": amenities,
         }
 
     def encode(self, f) -> np.ndarray:
