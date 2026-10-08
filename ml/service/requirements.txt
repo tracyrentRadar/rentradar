@@ -1,0 +1,16 @@
+# Pinned to the versions that trained and tested the artefacts.
+#
+# price_gb.joblib is a pickled scikit-learn model, and a pickle is tied to the
+# version that made it. A different scikit-learn in the container may refuse to
+# load it, or load it and behave differently, which is the kind of failure that
+# does not announce itself. Pinning is correctness here, not tidiness, and it
+# is also what lets chapter seven claim the results are reproducible.
+fastapi==0.142.2
+pydantic==2.13.5
+numpy==1.26.4
+scikit-learn==1.5.2
+joblib==1.6.0
+tensorflow-cpu==2.17.0
+
+# Not pickle sensitive, so a range is fine here.
+uvicorn[standard]>=0.30,<1.0

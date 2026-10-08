@@ -1,0 +1,15 @@
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+.pytest_cache/
+*.log
+
+# Only the feature spec and the model artefacts belong in the image. The raw
+# corpus holds agent names and phone numbers and has no business being baked
+# into a container.
+data/*
+!data/features
+artifacts/*
+!artifacts/models

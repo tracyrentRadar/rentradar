@@ -28,5 +28,25 @@ services:
       retries: 5
       start_period: 20s
 
+  # The Python inference tier. Built from ../ml, which is where the models, the
+  # feature spec and the serving code all live together. Keeping the build
+  # context there is deliberate: the service imports the same encode_one that
+  # built the training matrix, and splitting them across folders is how training
+  # and serving drift apart.
+  #
+  # No depends_on mongo. This service never touches the database, it holds the
+  # models and answers questions about them.
+  inference:
+    build:
+      context: ../ml
+      dockerfile: Dockerfile
+    image: rentradar-inference:local
+    restart: unless-stopped
+    ports:
+      # Loopback only. The gateway reaches it at http://127.0.0.1:8000, which is
+      # what rentradar.ml.base-url already points at, so nothing changes in the
+      # Spring configuration.
+      - "127.0.0.1:${INFERENCE_PORT:-8000}:8000"
+
 volumes:
   mongo-data:
