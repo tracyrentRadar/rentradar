@@ -103,6 +103,16 @@
     <string name="forecast_stable">Asking prices in %1$s have been broadly flat over the past month.</string>
     <string name="forecast_falling">Asking prices in %1$s have been easing over the past month.</string>
 
+
+    <string name="history_row_title">%1$d bed, %2$s</string>
+    <string name="history_row_title_beds_only">%1$d bed</string>
+    <string name="history_row_title_unknown">Estimate</string>
+    <string name="history_row_prices">asked %1$s · fair %2$s</string>
+    <string name="history_row_fair_only">fair %1$s</string>
+    <string name="history_row_cached">shown from cache</string>
+    <string name="home_status_market">Market %1$s</string>
+    <string name="home_status_no_market">No market on the account.</string>
+
     <string name="result_how_heading">How this was worked out</string>
     <string name="result_basis">Bedrooms, bathrooms, toilets, locality and listed amenities, compared with %1$s Accra listings.</string>
     <string name="result_cached">Saved estimate from %1$s. You are offline, so this has not been rechecked.</string>

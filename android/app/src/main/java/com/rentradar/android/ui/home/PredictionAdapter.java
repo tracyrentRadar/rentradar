@@ -14,40 +14,42 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.chip.Chip;
 import com.rentradar.android.R;
 import com.rentradar.android.data.remote.dto.PredictionDtos;
-import com.rentradar.android.data.remote.dto.PropertyDtos;
 
-import java.math.BigDecimal;
 import java.text.NumberFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Currency;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.TimeZone;
 
 /**
- * The list of past checks on the home screen.
+ * The list of past estimates, shared by the home screen and the history screen.
  *
- * Each row carries the interval, not just the point estimate, for the same
- * reason the result screen does. A saved number with no range around it reads
- * as a settled fact, and a month later the user has forgotten how wide it was.
+ * <p>The row answers "which place was this" before "what did it cost", because
+ * a column of bare money with no address is unreadable once there are more than
+ * two of them. Asked and fair sit on the same line so the comparison the user
+ * actually came for is one glance, not two.
  */
 public class PredictionAdapter extends RecyclerView.Adapter<PredictionAdapter.VH> {
 
     public interface OnClick {
-        void onPrediction(PredictionDtos.StoredPrediction prediction);
+        void onPrediction(PredictionDtos.Summary prediction);
     }
 
-    private final List<PredictionDtos.StoredPrediction> items = new ArrayList<>();
+    private final List<PredictionDtos.Summary> items = new ArrayList<>();
     @Nullable private final OnClick listener;
+
+    /**
+     * True when these rows came from the local cache rather than the network.
+     * Drives the badge on every row rather than a single banner, because a
+     * banner scrolls away and the rows do not.
+     */
+    private boolean fromCache;
 
     public PredictionAdapter(@Nullable OnClick listener) {
         this.listener = listener;
     }
 
-    public void submit(@Nullable List<PredictionDtos.StoredPrediction> rows) {
+    public void submit(@Nullable List<PredictionDtos.Summary> rows, boolean fromCache) {
+        this.fromCache = fromCache;
         items.clear();
         if (rows != null) {
             items.addAll(rows);
@@ -69,20 +71,11 @@ public class PredictionAdapter extends RecyclerView.Adapter<PredictionAdapter.VH
 
     @Override
     public void onBindViewHolder(@NonNull VH h, int position) {
-        PredictionDtos.StoredPrediction p = items.get(position);
+        PredictionDtos.Summary p = items.get(position);
 
-        String code = currencyOf(p);
-        if (p.ciLower != null && p.ciUpper != null) {
-            h.estimate.setText(money(p.ciLower.amount, code)
-                    + " " + h.itemView.getContext().getString(R.string.result_range_separator)
-                    + " " + money(p.ciUpper.amount, code));
-        } else if (p.predictedPrice != null) {
-            h.estimate.setText(money(p.predictedPrice.amount, code));
-        } else {
-            h.estimate.setText("");
-        }
-
-        h.when.setText(shortDate(p.createdAt));
+        h.title.setText(titleOf(h, p));
+        h.prices.setText(pricesOf(h, p));
+        h.cached.setVisibility(fromCache ? View.VISIBLE : View.GONE);
         paintVerdict(h.verdict, p.verdict);
 
         h.itemView.setOnClickListener(listener == null ? null : v -> listener.onPrediction(p));
@@ -93,53 +86,61 @@ public class PredictionAdapter extends RecyclerView.Adapter<PredictionAdapter.VH
         return items.size();
     }
 
-    private static String currencyOf(PredictionDtos.StoredPrediction p) {
-        if (p.predictedPrice != null && p.predictedPrice.currency != null) {
-            return p.predictedPrice.currency;
+    /**
+     * Three cases, because the listing behind an estimate can be deleted after
+     * the fact. A missing bedroom count is left out rather than printed as
+     * zero: "0 bed" is a statement, and nothing supports it.
+     */
+    private static String titleOf(VH h, PredictionDtos.Summary p) {
+        boolean hasBeds = p.bedrooms != null;
+        boolean hasLocality = p.locality != null && !p.locality.trim().isEmpty();
+
+        if (hasBeds && hasLocality) {
+            return h.itemView.getContext()
+                    .getString(R.string.history_row_title, p.bedrooms, p.locality);
         }
-        if (p.ciLower != null && p.ciLower.currency != null) {
-            return p.ciLower.currency;
+        if (hasBeds) {
+            return h.itemView.getContext()
+                    .getString(R.string.history_row_title_beds_only, p.bedrooms);
         }
-        return "GHS";
+        if (hasLocality) {
+            return p.locality;
+        }
+        return h.itemView.getContext().getString(R.string.history_row_title_unknown);
     }
 
-    private static String money(@Nullable BigDecimal amount, String code) {
+    private static String pricesOf(VH h, PredictionDtos.Summary p) {
+        String fair = money(p.fairPrice);
+        if (fair.isEmpty()) {
+            return "";
+        }
+        if (p.askedPrice == null) {
+            return h.itemView.getContext().getString(R.string.history_row_fair_only, fair);
+        }
+        return h.itemView.getContext()
+                .getString(R.string.history_row_prices, money(p.askedPrice), fair);
+    }
+
+    /**
+     * No currency symbol. Every row in a market carries the same one, so
+     * repeating it on both figures of every row is noise, and the result screen
+     * states it in full.
+     */
+    private static String money(@Nullable Double amount) {
         if (amount == null) {
             return "";
         }
         NumberFormat nf = NumberFormat.getNumberInstance(Locale.getDefault());
         nf.setMaximumFractionDigits(0);
-        String symbol;
-        try {
-            symbol = Currency.getInstance(code).getSymbol();
-        } catch (IllegalArgumentException ignored) {
-            symbol = code;
-        }
-        return symbol + " " + nf.format(amount);
+        return nf.format(amount);
     }
 
     /**
-     * minSdk is 24 and core library desugaring is off, so java.time would
-     * compile and then crash on API 24 and 25. Only the date part is needed,
-     * so the first ten characters of the ISO timestamp are parsed instead.
+     * Below reads as an alarm rather than a bargain, which is deliberate. An
+     * asking price well under the local norm is the single commonest shape of a
+     * rental advance scam, and the fraud model agrees with the colour often
+     * enough that softening it would be dishonest.
      */
-    private static String shortDate(@Nullable String iso) {
-        if (iso == null || iso.length() < 10) {
-            return "";
-        }
-        try {
-            SimpleDateFormat in = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
-            in.setTimeZone(TimeZone.getTimeZone("UTC"));
-            Date d = in.parse(iso.substring(0, 10));
-            if (d == null) {
-                return "";
-            }
-            return new SimpleDateFormat("d MMMM", Locale.getDefault()).format(d);
-        } catch (ParseException e) {
-            return "";
-        }
-    }
-
     private static void paintVerdict(Chip chip, @Nullable String verdict) {
         if (verdict == null) {
             chip.setVisibility(View.GONE);
@@ -148,7 +149,7 @@ public class PredictionAdapter extends RecyclerView.Adapter<PredictionAdapter.VH
         chip.setVisibility(View.VISIBLE);
         switch (verdict) {
             case PredictionDtos.VERDICT_BELOW:
-                paint(chip, R.string.verdict_below, R.color.risk_watch, R.color.risk_watch_container);
+                paint(chip, R.string.verdict_below, R.color.md_error, R.color.md_error_container);
                 break;
             case PredictionDtos.VERDICT_ABOVE:
                 paint(chip, R.string.verdict_above, R.color.risk_watch, R.color.risk_watch_container);
@@ -167,14 +168,16 @@ public class PredictionAdapter extends RecyclerView.Adapter<PredictionAdapter.VH
     }
 
     static class VH extends RecyclerView.ViewHolder {
-        final TextView estimate;
-        final TextView when;
+        final TextView title;
+        final TextView prices;
+        final TextView cached;
         final Chip verdict;
 
         VH(@NonNull View v) {
             super(v);
-            estimate = v.findViewById(R.id.item_estimate);
-            when = v.findViewById(R.id.item_when);
+            title = v.findViewById(R.id.item_title);
+            prices = v.findViewById(R.id.item_prices);
+            cached = v.findViewById(R.id.item_cached);
             verdict = v.findViewById(R.id.item_verdict);
         }
     }

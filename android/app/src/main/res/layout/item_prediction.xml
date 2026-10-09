@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  One past check. The interval is shown here too, not just the point estimate,
-  for the same reason it is shown on the result screen: a saved number with no
-  range around it is read as a fact.
+  One past estimate, as screens 05 and 17 draw it:
+
+      3 bed, East Legon                     [Below market]
+      asked 4,200 · fair 31,485
+      shown from cache
+
+  The cache line is gone by default and is turned on only when the row came
+  from storage rather than the network. Principle 3 says a stale figure must
+  never be mistakable for a current one.
 -->
 <com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -16,9 +22,7 @@
     android:focusable="true"
     app:cardBackgroundColor="?attr/colorSurfaceContainerLow"
     app:cardCornerRadius="@dimen/radius_banner"
-    app:cardElevation="0dp"
-    app:strokeColor="?attr/colorOutlineVariant"
-    app:strokeWidth="1dp">
+    app:cardElevation="0dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -34,23 +38,36 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/item_estimate"
+                android:id="@+id/item_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLines="1"
+                android:ellipsize="end"
                 android:textAppearance="?attr/textAppearanceTitleMedium"
                 android:textColor="?attr/colorOnSurface"
-                tools:text="GH₵ 3,834 to 4,879" />
+                tools:text="3 bed, East Legon" />
 
             <TextView
-                android:id="@+id/item_when"
+                android:id="@+id/item_prices"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_4"
                 android:maxLines="1"
                 android:textAppearance="?attr/textAppearanceBodySmall"
                 android:textColor="?attr/colorOnSurfaceVariant"
-                tools:text="3 October" />
+                tools:text="asked 4,200 · fair 31,485" />
+
+            <TextView
+                android:id="@+id/item_cached"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_4"
+                android:maxLines="1"
+                android:text="@string/history_row_cached"
+                android:textAppearance="?attr/textAppearanceBodySmall"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                android:visibility="gone"
+                tools:visibility="visible" />
         </LinearLayout>
 
         <com.google.android.material.chip.Chip
@@ -61,6 +78,6 @@
             android:layout_marginStart="@dimen/space_8"
             android:clickable="false"
             android:focusable="false"
-            tools:text="At market" />
+            tools:text="Below market" />
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

@@ -11,6 +11,7 @@ import com.rentradar.android.data.remote.dto.PredictionDtos;
 import com.rentradar.android.data.remote.dto.PropertyDtos;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -101,6 +102,36 @@ public class PredictionRepository {
                         listener.onResult(Result.error(describe(t)));
                     }
                 });
+    }
+
+    /**
+     * Past estimates, newest first.
+     *
+     * <p>An empty list is a success, not an error. A new account has no history
+     * and the screen has a sentence for that case; turning it into a failure
+     * message would tell the user something is broken when nothing is.
+     */
+    public void history(int limit,
+                        @NonNull Result.Listener<List<PredictionDtos.Summary>> listener) {
+        listener.onResult(Result.loading());
+        predictions.history(limit).enqueue(new Callback<List<PredictionDtos.Summary>>() {
+            @Override
+            public void onResponse(@NonNull Call<List<PredictionDtos.Summary>> call,
+                                   @NonNull Response<List<PredictionDtos.Summary>> response) {
+                List<PredictionDtos.Summary> body = response.body();
+                if (!response.isSuccessful() || body == null) {
+                    listener.onResult(Result.error(message(response)));
+                    return;
+                }
+                listener.onResult(Result.success(body));
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<List<PredictionDtos.Summary>> call,
+                                  @NonNull Throwable t) {
+                listener.onResult(Result.error(describe(t)));
+            }
+        });
     }
 
     private String message(Response<?> response) {

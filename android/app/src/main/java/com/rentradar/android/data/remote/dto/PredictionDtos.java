@@ -3,26 +3,20 @@ package com.rentradar.android.data.remote.dto;
 import java.util.List;
 
 /**
- * Two shapes, because the backend has two.
+ * Three shapes.
  *
  * PredictionResponse is what POST /api/v1/predictions answers with: four
  * blocks, estimate as a peer of the rest.
  *
- * StoredPrediction is what the two GET endpoints answer with: the prediction
- * document itself, flat, with money as amount plus currency. Reading a history
- * list into PredictionResponse would silently produce nulls, so they are kept
- * apart.
+ * Summary is what the two GET endpoints answer with, one row of history as the
+ * Home and History screens draw it. It replaces the old StoredPrediction, which
+ * mirrored the raw database document and could not describe its own row: it had
+ * a fair price and a verdict but no bedrooms, no locality and no asking price,
+ * because those live on the property.
  *
- * Every numeric field is a boxed type on purpose. A null tells the screen the
- * server did not send that number, and the screen can leave the space empty.
- * A primitive would quietly become 0.0, and an interval drawn from 0.0 to 0.0
- * is a lie the user cannot see through.
- *
- * Gson ignores JSON it does not recognise and leaves unmatched Java fields
- * null, so extra fields on either side are harmless. That cuts both ways: a
- * field misnamed here does not fail, it silently reads null forever. The
- * forecast block was in exactly that state until the names were checked
- * against PredictionResponse.java field by field.
+ * Every numeric field is boxed on purpose. A null says the server did not send
+ * that number and the screen can leave the space empty. A primitive would
+ * quietly become 0 and put "0 bed" on screen, which is a claim nothing supports.
  */
 public final class PredictionDtos {
 
@@ -72,18 +66,12 @@ public final class PredictionDtos {
     }
 
     /**
-     * The forecast block, matching PredictionResponse.Forecast on the server.
+     * Matches PredictionResponse.Forecast on the server: direction, the level at
+     * the end of the horizon, its interval, and the producing model's error.
      *
-     * The backend does now send this. Direction, the level at the end of the
-     * horizon, its interval, and the error of the producing model.
-     *
-     * series is deliberately kept and is deliberately always null here. The
-     * POST response carries the end point only, not the 30 daily points, so
-     * nothing populates it. The full series comes from
-     * GET /api/v1/forecasts/{locationId}, which the forecast detail screen will
-     * call. Keeping the field means the detail button's visibility check
-     * continues to compile and continues to answer no, which is the honest
-     * answer until that screen exists.
+     * series is kept and is always null here. The POST response carries the end
+     * point only. The thirty daily points come from GET /api/v1/forecasts/{id},
+     * which the forecast detail screen will call.
      */
     public static final class Forecast {
         public String direction;
@@ -119,9 +107,8 @@ public final class PredictionDtos {
 
         /**
          * True when the figure came from a placeholder model rather than a
-         * trained one. The serving tier already stamps every artefact and
-         * refuses to pass a stub off as trained; this carries that same
-         * honesty to the screen the tenant actually reads.
+         * trained one. The serving tier already refuses to pass a stub off as
+         * trained; this carries that honesty to the screen the tenant reads.
          */
         public boolean servedByStub() {
             String v = meta == null ? null : meta.priceModelVersion;
@@ -129,19 +116,24 @@ public final class PredictionDtos {
         }
     }
 
-    /** The GET response. The prediction document, flat. */
-    public static final class StoredPrediction {
+    /**
+     * One row of history. Matches PredictionSummaryResponse on the server.
+     *
+     * bedrooms, city, locality and askedPrice are null when the listing behind
+     * the estimate has since been deleted. The estimate is still real and still
+     * belongs in the list, so the row renders with what it has.
+     */
+    public static final class Summary {
         public String id;
         public String propertyId;
-        public String userId;
-        public String marketId;
-        public PropertyDtos.Money predictedPrice;
-        public PropertyDtos.Money ciLower;
-        public PropertyDtos.Money ciUpper;
+        public Integer bedrooms;
+        public String city;
+        public String locality;
+        public Double askedPrice;
+        public Double fairPrice;
+        public String currency;
         public String verdict;
         public String modelVersion;
-        public Integer latencyMs;
-        public String correlationId;
         public String createdAt;
     }
 }
