@@ -19,7 +19,10 @@ import java.util.List;
  * is a lie the user cannot see through.
  *
  * Gson ignores JSON it does not recognise and leaves unmatched Java fields
- * null, so extra fields on either side are harmless.
+ * null, so extra fields on either side are harmless. That cuts both ways: a
+ * field misnamed here does not fail, it silently reads null forever. The
+ * forecast block was in exactly that state until the names were checked
+ * against PredictionResponse.java field by field.
  */
 public final class PredictionDtos {
 
@@ -33,6 +36,10 @@ public final class PredictionDtos {
     public static final String RISK_LOW = "LOW";
     public static final String RISK_MEDIUM = "MEDIUM";
     public static final String RISK_HIGH = "HIGH";
+
+    public static final String TREND_RISING = "RISING";
+    public static final String TREND_STABLE = "STABLE";
+    public static final String TREND_FALLING = "FALLING";
 
     /** Matches CreatePredictionRequest. One field, the id of a listing already posted. */
     public static final class PredictionRequest {
@@ -60,26 +67,42 @@ public final class PredictionDtos {
     public static final class SeriesPoint {
         public Integer day;
         public Double value;
+        public Double lower;
+        public Double upper;
     }
 
     /**
-     * The backend does not send this yet, so it is always null and the forecast
-     * card stays hidden. Left in place so that adding the block server-side
-     * makes the card appear with no change here.
+     * The forecast block, matching PredictionResponse.Forecast on the server.
+     *
+     * The backend does now send this. Direction, the level at the end of the
+     * horizon, its interval, and the error of the producing model.
+     *
+     * series is deliberately kept and is deliberately always null here. The
+     * POST response carries the end point only, not the 30 daily points, so
+     * nothing populates it. The full series comes from
+     * GET /api/v1/forecasts/{locationId}, which the forecast detail screen will
+     * call. Keeping the field means the detail button's visibility check
+     * continues to compile and continues to answer no, which is the honest
+     * answer until that screen exists.
      */
     public static final class Forecast {
-        public Integer horizonDays;
-        public List<SeriesPoint> series;
         public String direction;
-        public Double mae;
+        public Double value;
+        public Double lower;
+        public Double upper;
+        public String currency;
+        public Integer horizonDays;
+        public Double meanAbsoluteError;
         public String modelVersion;
         public String generatedAt;
+        public List<SeriesPoint> series;
     }
 
     public static final class Meta {
         public String marketId;
         public String priceModelVersion;
         public String fraudModelVersion;
+        public String trendModelVersion;
         public Long latencyMs;
         public String correlationId;
         public String createdAt;

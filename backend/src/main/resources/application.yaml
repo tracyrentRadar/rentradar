@@ -29,7 +29,7 @@ rentradar:
     markets: [ GH ]
     locality-radius-metres: 20000
     max-cities-per-market: 10
-    valid-sources: [ meqasa, jiji, tonaton, field_survey ]
+    valid-sources: [ ghana_property_centre, jiji, field_survey, user_submitted ]
     default-area-unit: SQM
   restcountries:
     api-key: ${RESTCOUNTRIES_API_KEY:}

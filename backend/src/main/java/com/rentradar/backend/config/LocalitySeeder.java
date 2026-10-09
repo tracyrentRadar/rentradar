@@ -70,19 +70,21 @@ public class LocalitySeeder {
                 return;
             }
 
-            RentalMarket market = markets.findByCode(seed.market()).orElseGet(() -> {
-                log.info("Creating market {}", seed.market());
-                return markets.save(new RentalMarket(
-                        null,
-                        seed.market(),
-                        "Ghana",
-                        "GHS",
-                        properties.defaultAreaUnit(),
-                        "en-GH",
-                        Set.copyOf(properties.validSources()),
-                        true,
-                        Instant.now()));
-            });
+            RentalMarket market = markets.findByCode(seed.market())
+                    .map(existing -> reconcileSources(markets, existing, properties))
+                    .orElseGet(() -> {
+                        log.info("Creating market {}", seed.market());
+                        return markets.save(new RentalMarket(
+                                null,
+                                seed.market(),
+                                "Ghana",
+                                "GHS",
+                                properties.defaultAreaUnit(),
+                                "en-GH",
+                                Set.copyOf(properties.validSources()),
+                                true,
+                                Instant.now()));
+                    });
 
             int created = 0;
 
@@ -101,6 +103,45 @@ public class LocalitySeeder {
                             + "({} localities in the file)",
                     market.code(), created, seed.specVersion(), seed.localities().size());
         };
+    }
+
+    /**
+     * Brings an existing market document's accepted sources back in line with
+     * configuration.
+     *
+     * <p>Without this the seeder was create-or-ignore, so the source list was
+     * frozen at whatever the market was first created with. Editing
+     * {@code valid-sources} in the yaml appeared to do nothing, and a property
+     * submitted from the Android app was rejected with "Unknown source
+     * 'USER_SUBMITTED'" even though the configuration plainly allowed it. The
+     * list is market reference data, not user data, so configuration is the
+     * authority and the document follows it.
+     *
+     * <p>Only the source set is touched. Name, currency, area unit, locale and
+     * createdAt are carried over untouched, so nothing a user or an import
+     * established is overwritten by a restart.
+     */
+    private RentalMarket reconcileSources(RentalMarketRepository markets,
+                                          RentalMarket existing,
+                                          ReferenceDataProperties properties) {
+        Set<String> configured = Set.copyOf(properties.validSources());
+        if (existing.validSources().equals(configured)) {
+            return existing;
+        }
+
+        log.info("Market {} accepted sources {} do not match configuration {}, updating",
+                existing.code(), existing.validSources(), configured);
+
+        return markets.save(new RentalMarket(
+                existing.id(),
+                existing.code(),
+                existing.name(),
+                existing.currency(),
+                existing.defaultAreaUnit(),
+                existing.locale(),
+                configured,
+                existing.active(),
+                existing.createdAt()));
     }
 
     private boolean save(MarketLocationRepository locations, RentalMarket market,

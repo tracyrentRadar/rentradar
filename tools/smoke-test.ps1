@@ -87,7 +87,7 @@ $created = Invoke-Api "$base/properties" @{
     currency     = "GHS"
     furnished    = $true
     amenities    = @("Swimming Pool", "Security")
-    source       = "field_survey"
+    source       = "USER_SUBMITTED"
 } $token
 
 $propertyId = $created.id
