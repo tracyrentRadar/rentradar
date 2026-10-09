@@ -103,6 +103,31 @@
     <string name="forecast_stable">Asking prices in %1$s have been broadly flat over the past month.</string>
     <string name="forecast_falling">Asking prices in %1$s have been easing over the past month.</string>
 
+    <!-- Chat intake, screen furniture. The question wording lives with the
+     view model and arrives next. -->
+    <string name="chat_back">Back</string>
+    <string name="chat_brand">RentRadar</string>
+    <string name="chat_restart">Start over</string>
+    <string name="chat_progress">%1$d of %2$d</string>
+    <string name="chat_greeting_body">Tell me about it in your own words, or tap an answer.</string>
+    <string name="chat_hint">Type your answer</string>
+    <string name="chat_options">Show the answer choices</string>
+    <string name="chat_send">Send</string>
+
+
+    <!-- One of these is picked at random each time the chat opens, so the
+     screen does not read the same twice. Keep them short, they sit
+     under the logo at headline size. -->
+    <string-array name="chat_greetings">
+        <item>What are we pricing?</item>
+        <item>Tell me about the place</item>
+        <item>Let\'s find the fair rent</item>
+        <item>Where are you looking?</item>
+        <item>What have you found?</item>
+        <item>Start with the area</item>
+        <item>Ready when you are</item>
+        <item>Let\'s check a rent</item>
+    </string-array>
 
     <string name="history_row_title">%1$d bed, %2$s</string>
     <string name="history_row_title_beds_only">%1$d bed</string>
