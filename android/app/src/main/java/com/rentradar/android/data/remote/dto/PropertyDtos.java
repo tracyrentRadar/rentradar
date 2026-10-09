@@ -4,13 +4,21 @@ import java.math.BigDecimal;
 import java.util.List;
 
 /**
- * Mirrors the backend's CreatePropertyRequest exactly. Same field names, same
- * order, so a reader can hold the two side by side.
+ * The property contract, both directions.
  *
- * Money and area are BigDecimal here because they are BigDecimal there. Sending
- * a double would let the JSON carry 4500.000000000001 and the server's
- * @DecimalMin would still pass it, which is the sort of drift nobody notices
- * until the estimate is a few pesewas off.
+ * <p>The request mirrors the backend's CreatePropertyRequest. The response
+ * mirrors the backend's PropertyResponse, which is a flatter shape than the
+ * stored document: area arrives as a magnitude plus a separate unit, and money
+ * as an amount plus a separate currency, rather than as nested objects.
+ *
+ * <p>This file previously declared nested Area and Money objects for those two
+ * fields. The server has never sent them that way, so Gson met a number where
+ * it wanted an object and threw "Expected BEGIN_OBJECT but was NUMBER at path
+ * $.size" on every submission. Nothing caught it because Gson's leniency only
+ * covers fields that are absent, not fields of the wrong type.
+ *
+ * <p>Boxed types throughout, so a field the server omits reads as null rather
+ * than as a confident zero.
  */
 public final class PropertyDtos {
 
@@ -66,33 +74,31 @@ public final class PropertyDtos {
         }
     }
 
-    public static final class Money {
-        public BigDecimal amount;
-        public String currency;
-    }
-
-    public static final class Area {
-        public BigDecimal magnitude;
-        public String unit;
-    }
-
+    /**
+     * Matches PropertyResponse on the server, field for field.
+     *
+     * <p>locationId is the one the forecast detail screen will need, because
+     * GET /api/v1/forecasts/{locationId} is keyed on it and the prediction
+     * response does not carry it.
+     *
+     * <p>The server also returns pricePerSquareMetre, which it computes. It is
+     * kept here rather than dropped so the field is visible to anyone comparing
+     * the two files, even though no screen uses it yet.
+     */
     public static final class PropertyResponse {
         public String id;
-        public String ownerId;
         public String marketId;
         public String locationId;
         public String title;
         public Integer bedrooms;
         public Integer bathrooms;
-        public Integer toilets;
-        public Integer parkingSpaces;
-        public String propertyType;
-        public Area size;
-        public Money listedPrice;
+        public BigDecimal size;
+        public String sizeUnit;
+        public BigDecimal price;
+        public String currency;
+        public BigDecimal pricePerSquareMetre;
         public Boolean furnished;
-        public List<String> amenities;
         public String source;
         public String postedAt;
-        public String createdAt;
     }
 }
