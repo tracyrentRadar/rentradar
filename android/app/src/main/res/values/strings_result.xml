@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Estimate screen, laid out as Figma screen 03. Lives in its own file so
+         the main strings.xml stays untouched. -->
+
+    <string name="result_title">Estimate</string>
+    <string name="result_label_fair_rent">Fair rent · per month</string>
+    <string name="result_label_range">Likely range · 90 per cent confidence</string>
+    <string name="result_asking_pin">asking %1$s</string>
+
+    <!-- The one-line description under the price, e.g. "2 bed · 110 m² · East Legon, Accra". -->
+    <string name="result_desc_beds">%1$d bed</string>
+    <string name="result_desc_size">%1$s m²</string>
+    <string name="result_desc_place">%1$s, Accra</string>
+    <string name="result_desc_separator">" · "</string>
+
+    <string name="verdict_text_at">The asking price sits inside the likely range.</string>
+    <string name="verdict_text_below">The asking price sits below the likely range.</string>
+    <string name="verdict_text_above">The asking price sits above the likely range.</string>
+
+    <string name="result_risk_title">Listing risk</string>
+    <string name="risk_chip_low">Low</string>
+    <string name="risk_chip_medium">Medium</string>
+    <string name="risk_chip_high">High</string>
+    <string name="risk_reason_low_full">The asking price is consistent with other places in %1$s. Nothing unusual was found, but always view the property in person before paying a deposit.</string>
+
+    <string name="result_row_why">Why this estimate</string>
+    <string name="result_row_why_sub">Bedrooms, bathrooms, locality, amenities</string>
+    <string name="result_row_model">Model and data</string>
+    <string name="result_model_pair">%1$s · %2$s</string>
+    <string name="result_model_unavailable">Model details were not returned</string>
+
+    <string name="outlook_rising">Rising over the past month</string>
+    <string name="outlook_stable">Broadly flat over the past month</string>
+    <string name="outlook_falling">Easing over the past month</string>
+    <string name="outlook_level">Over the next %1$d days the index for this area is expected to stay close to %2$s %3$s, give or take %4$s.</string>
+    <string name="outlook_level_plain">Over the next %1$d days the index for this area is expected to stay close to %2$s %3$s.</string>
+
+</resources>
