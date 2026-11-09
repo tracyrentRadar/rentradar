@@ -138,6 +138,72 @@
     <string name="home_status_market">Market %1$s</string>
     <string name="home_status_no_market">No market on the account.</string>
 
+
+    <!-- Chat intake, the script. Questions, acknowledgements and the confirm
+     step. The locality, type and amenity choices come from arrays.xml. -->
+    <string name="chat_intro">Tell me about the place and I will work out what it should cost. You can type it all in one go, or answer one question at a time.</string>
+    <string name="chat_q_locality">Which area is it in? Type it, or pick one below.</string>
+    <string name="chat_q_locality_retry">I do not know that area yet. Pick the closest one below, or type another.</string>
+    <string name="chat_q_bedrooms">How many bedrooms?</string>
+    <string name="chat_q_bathrooms">And how many bathrooms?</string>
+    <string name="chat_q_count_retry">A number between 1 and 10, please.</string>
+    <string name="chat_q_type">What kind of place is it?</string>
+    <string name="chat_q_type_retry">I did not catch the type. Pick one below.</string>
+    <string name="chat_q_amenities">What does it come with? Tick everything that applies, then tap Done. Or just tell me.</string>
+    <string name="chat_q_amenities_retry">None of the usual ones in that. Tick what applies below, or say none.</string>
+    <string name="chat_q_size">Roughly how big is it, in square metres? A guess is fine, or tap Not sure.</string>
+    <string name="chat_q_size_retry">A number of square metres, please, or tap Not sure.</string>
+    <string name="chat_q_rent">What are they asking per month, in cedis?</string>
+    <string name="chat_q_rent_retry">I need a monthly figure in cedis, for example 4500 or 4.5k.</string>
+    <string name="chat_ack">Got it: %1$s.</string>
+    <string name="chat_confirm">Here is what I have.\n\n%1$s\n\nShall I get the estimate?</string>
+    <string name="chat_confirm_retry">I did not catch that. Tap Get the estimate, or Change something.</string>
+    <string name="chat_change_which">Which one should I change?</string>
+    <string name="chat_chip_estimate">Get the estimate</string>
+    <string name="chat_chip_change">Change something</string>
+    <string name="chat_chip_done">Done</string>
+    <string name="chat_chip_not_sure">Not sure</string>
+    <string name="chat_size_assumed">I will use a typical size for %1$d bedrooms, about %2$d square metres. You can change it at the end.</string>
+    <string name="chat_working">Working it out...</string>
+    <string name="chat_done">Done. Come back here to change something and ask again.</string>
+    <string name="chat_failed">That did not work: %1$s Tap Get the estimate to try again.</string>
+    <string name="chat_label_locality">Area</string>
+    <string name="chat_label_bedrooms">Bedrooms</string>
+    <string name="chat_label_bathrooms">Bathrooms</string>
+    <string name="chat_label_type">Type</string>
+    <string name="chat_label_amenities">Comes with</string>
+    <string name="chat_label_size">Size</string>
+    <string name="chat_label_rent">Asking</string>
+    <string name="chat_amenities_none">nothing listed</string>
+    <string name="chat_size_format">%1$s square metres</string>
+    <string name="chat_rent_format">GHS %1$s a month</string>
+    <plurals name="chat_bedrooms">
+        <item quantity="one">%d bedroom</item>
+        <item quantity="other">%d bedrooms</item>
+    </plurals>
+    <plurals name="chat_bathrooms">
+        <item quantity="one">%d bathroom</item>
+        <item quantity="other">%d bathrooms</item>
+    </plurals>
+
+    <!-- Home, the prompt bar. -->
+    <string name="home_prompt_hint">Describe a place and I will tell you what it should cost</string>
+    <string name="home_prompt_sub">Type it however you like</string>
+    <string name="home_prompt_cd">Start a new estimate</string>
+    <string name="home_use_form">Use the form instead</string>
+
+
+    <!-- Price check explanations. The server names the model channel that
+     stood out most; these turn that name into a sentence a tenant can act
+     on. %1$s is the locality. -->
+    <string name="risk_factor_rent">The asking price is what stands out: it is unusual for places like this in %1$s. Compare it with a few similar adverts before paying anything.</string>
+    <string name="risk_factor_bedrooms">The number of bedrooms stands out against similar places in %1$s. Make sure the advert matches the property you are shown.</string>
+    <string name="risk_factor_bathrooms">The number of bathrooms stands out against similar places in %1$s. Check it in person.</string>
+    <string name="risk_factor_toilets">The number of toilets stands out against similar places in %1$s. Check it in person.</string>
+    <string name="risk_factor_amenities">The list of amenities stands out for this price in %1$s. Confirm each one exists before paying.</string>
+    <string name="risk_factor_distance">The location details do not line up with nearby adverts in %1$s. Confirm the exact address before viewing.</string>
+    <string name="risk_factor_other">Something about this advert stands out against similar places in %1$s. Verify the details before paying anything.</string>
+
     <string name="result_how_heading">How this was worked out</string>
     <string name="result_basis">Bedrooms, bathrooms, toilets, locality and listed amenities, compared with %1$s Accra listings.</string>
     <string name="result_cached">Saved estimate from %1$s. You are offline, so this has not been rechecked.</string>

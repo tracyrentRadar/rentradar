@@ -57,126 +57,124 @@
             android:layout_marginTop="@dimen/space_8"
             android:textAppearance="?attr/textAppearanceBodyMedium"
             android:textColor="?attr/colorOnSurfaceVariant"
-            tools:text="Signed in as geoffrey@example.com" />
+            tools:text="Market GH" />
 
-        <!-- ============================================ primary action -->
+        <!-- ============================================ the prompt bar -->
         <!--
-          A card, not a button. This is the product, so it should read as the
-          place you are going rather than a control you press.
+          Looks like the input card on the chat screen, because tapping it
+          opens that screen with the keyboard ready. Not an EditText: typing
+          happens in the conversation, where the reply can be shown.
         -->
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/home_check_card"
+        <LinearLayout
+            android:id="@+id/home_prompt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_24"
+            android:background="@drawable/bg_chat_input"
             android:clickable="true"
             android:focusable="true"
-            app:cardBackgroundColor="?attr/colorPrimaryContainer"
-            app:cardCornerRadius="@dimen/radius_card"
-            app:cardElevation="@dimen/card_elevation"
-            app:rippleColor="?attr/colorOnPrimaryContainer">
+            android:foreground="?attr/selectableItemBackground"
+            android:orientation="vertical"
+            android:padding="@dimen/space_12">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:minHeight="40dp"
+                android:paddingHorizontal="@dimen/space_4"
+                android:text="@string/home_prompt_hint"
+                android:textAppearance="?attr/textAppearanceBodyLarge"
+                android:textColor="?attr/colorOnSurfaceVariant" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_8"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="@dimen/space_20">
+                android:orientation="horizontal">
 
-                <LinearLayout
+                <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/home_check_title"
-                        android:textAppearance="?attr/textAppearanceTitleLarge"
-                        android:textColor="?attr/colorOnPrimaryContainer" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/space_4"
-                        android:text="@string/home_check_subtitle"
-                        android:textAppearance="?attr/textAppearanceBodyMedium"
-                        android:textColor="?attr/colorOnPrimaryContainer" />
-                </LinearLayout>
+                    android:paddingHorizontal="@dimen/space_4"
+                    android:text="@string/home_prompt_sub"
+                    android:textAppearance="?attr/textAppearanceLabelMedium"
+                    android:textColor="?attr/colorOnSurfaceVariant" />
 
                 <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginStart="@dimen/space_12"
-                    android:contentDescription="@null"
-                    android:rotation="180"
-                    android:src="@drawable/ic_arrow_back"
-                    app:tint="?attr/colorOnPrimaryContainer" />
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/bg_send_circle"
+                    android:contentDescription="@string/home_prompt_cd"
+                    android:padding="@dimen/space_8"
+                    android:src="@drawable/ic_send_up"
+                    app:tint="?attr/colorOnPrimary" />
             </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/home_use_form"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="-8dp"
+            android:layout_marginTop="@dimen/space_4"
+            android:text="@string/home_use_form"
+            app:cornerRadius="@dimen/shape_xs" />
 
         <!-- ============================================ what you get -->
-        <!--
-          Three lines, no numbers. Saying what the app returns before the user
-          spends two minutes on a form is the difference between a tool and a
-          form that demands trust up front.
-        -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/stroke_width"
+            android:layout_marginTop="@dimen/space_16"
+            android:background="?attr/colorOutlineVariant" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_24"
+            android:layout_marginTop="@dimen/space_20"
             android:text="@string/home_outputs_heading"
             android:textAppearance="?attr/textAppearanceLabelLarge"
             android:textColor="?attr/colorOnSurfaceVariant" />
 
-        <com.google.android.material.card.MaterialCardView
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_12"
-            app:cardBackgroundColor="?attr/colorSurfaceContainerLow"
-            app:cardCornerRadius="@dimen/radius_card"
-            app:cardElevation="@dimen/card_elevation"
-            app:strokeColor="?attr/colorOutlineVariant"
-            app:strokeWidth="1dp">
+            android:text="@string/home_output_price"
+            android:textAppearance="?attr/textAppearanceBodyMedium"
+            android:textColor="?attr/colorOnSurface" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/space_20">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_8"
+            android:text="@string/home_output_risk"
+            android:textAppearance="?attr/textAppearanceBodyMedium"
+            android:textColor="?attr/colorOnSurface" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/home_output_price"
-                    android:textAppearance="?attr/textAppearanceBodyMedium"
-                    android:textColor="?attr/colorOnSurface" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_12"
-                    android:text="@string/home_output_risk"
-                    android:textAppearance="?attr/textAppearanceBodyMedium"
-                    android:textColor="?attr/colorOnSurface" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_12"
-                    android:text="@string/home_output_trend"
-                    android:textAppearance="?attr/textAppearanceBodyMedium"
-                    android:textColor="?attr/colorOnSurface" />
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_8"
+            android:text="@string/home_output_trend"
+            android:textAppearance="?attr/textAppearanceBodyMedium"
+            android:textColor="?attr/colorOnSurface" />
 
         <!-- ============================================ recent checks -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/stroke_width"
+            android:layout_marginTop="@dimen/space_20"
+            android:background="?attr/colorOutlineVariant" />
+
         <TextView
             android:id="@+id/home_recent_heading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_24"
+            android:layout_marginTop="@dimen/space_20"
             android:text="@string/home_recent_heading"
             android:textAppearance="?attr/textAppearanceLabelLarge"
             android:textColor="?attr/colorOnSurfaceVariant" />

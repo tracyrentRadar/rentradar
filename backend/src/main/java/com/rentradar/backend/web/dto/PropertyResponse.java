@@ -6,6 +6,15 @@ import com.rentradar.backend.domain.type.AreaUnit;
 import java.math.BigDecimal;
 import java.time.Instant;
 
+/**
+ * The property as the API hands it back.
+ *
+ * <p>furnished is a Boolean, not a boolean. The domain allows "nobody said"
+ * as a third state because the model treats it as its own signal, and the
+ * conversational intake never asks, so it arrives as null routinely. A
+ * primitive here unboxed that null and threw, which turned every chat
+ * submission into a 500 after the property had already been saved.
+ */
 public record PropertyResponse(
         String id,
         String marketId,
@@ -18,7 +27,7 @@ public record PropertyResponse(
         BigDecimal price,
         String currency,
         BigDecimal pricePerSquareMetre,
-        boolean furnished,
+        Boolean furnished,
         String source,
         Instant postedAt
 ) {

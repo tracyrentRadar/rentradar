@@ -9,6 +9,7 @@ import android.widget.FrameLayout;
 import androidx.annotation.ColorRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -189,19 +190,52 @@ public class ResultFragment extends Fragment {
                 break;
         }
 
-        // The server's own sentence, which describes the price. Showing it
-        // rather than composing one here keeps a single wording of the
-        // explanation across the API, the logs and the screen.
-        if (f.principalFactor != null && !f.principalFactor.trim().isEmpty()) {
-            binding.riskReason.setText(f.principalFactor);
-        } else {
-            binding.riskReason.setText(
-                    getString(R.string.risk_reason_low, viewModel.locality()));
-        }
+        binding.riskReason.setText(reasonFor(f.level, f.principalFactor));
 
         boolean worth = !PredictionDtos.RISK_LOW.equals(f.level);
         binding.riskChecklistHeading.setVisibility(worth ? View.VISIBLE : View.GONE);
         binding.riskChecklist.setVisibility(worth ? View.VISIBLE : View.GONE);
+    }
+
+    /**
+     * The server names the model channel that stood out most, for example
+     * "log_rent" or "amenity_count". That is a fact about the model, not a
+     * sentence for a tenant, so it is translated here. A value this build has
+     * never heard of gets the generic sentence rather than being printed raw.
+     * A low risk always gets the reassuring line, whatever channel was named,
+     * because at that level nothing stood out enough to be worth a warning.
+     */
+    private String reasonFor(@NonNull String level, @Nullable String factor) {
+        if (PredictionDtos.RISK_LOW.equals(level)) {
+            return getString(R.string.risk_reason_low, viewModel.locality());
+        }
+        return getString(factorText(factor), viewModel.locality());
+    }
+
+    @StringRes
+    private static int factorText(@Nullable String factor) {
+        if (factor == null) {
+            return R.string.risk_factor_other;
+        }
+        switch (factor.trim().toLowerCase(Locale.ROOT)) {
+            case "log_rent":
+            case "rent":
+            case "price":
+                return R.string.risk_factor_rent;
+            case "bedrooms":
+                return R.string.risk_factor_bedrooms;
+            case "bathrooms":
+                return R.string.risk_factor_bathrooms;
+            case "toilets":
+                return R.string.risk_factor_toilets;
+            case "amenity_count":
+            case "amenities":
+                return R.string.risk_factor_amenities;
+            case "distance":
+                return R.string.risk_factor_distance;
+            default:
+                return R.string.risk_factor_other;
+        }
     }
 
     private void bindForecast(PredictionDtos.PredictionResponse r) {

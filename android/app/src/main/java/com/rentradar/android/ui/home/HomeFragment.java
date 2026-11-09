@@ -15,8 +15,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.rentradar.android.R;
 import com.rentradar.android.data.Result;
+import com.rentradar.android.data.remote.dto.PredictionDtos;
 import com.rentradar.android.data.repository.AuthRepository;
 import com.rentradar.android.databinding.FragmentHomeBinding;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -26,10 +29,13 @@ import dagger.hilt.android.AndroidEntryPoint;
  * Screen 05. The entry point: what the app does, a way in, and what you asked
  * it last.
  *
+ * <p>The way in is the prompt bar, which opens the conversation. The old form
+ * is still reachable from a small text button underneath, so the two can be
+ * shown side by side in the demonstration.
+ *
  * <p>The list is not clickable yet. Opening a stored estimate means rebuilding
  * the result screen from a saved row rather than from a fresh prediction, which
- * is its own piece of work. A row that looks tappable and does nothing is worse
- * than one that plainly does not, so no ripple is wired until it does.
+ * is its own piece of work.
  */
 @AndroidEntryPoint
 public class HomeFragment extends Fragment {
@@ -65,7 +71,9 @@ public class HomeFragment extends Fragment {
         binding.homeRecentList.setLayoutManager(new LinearLayoutManager(requireContext()));
         binding.homeRecentList.setAdapter(adapter);
 
-        binding.homeCheckCard.setOnClickListener(v ->
+        binding.homePrompt.setOnClickListener(v ->
+                NavHostFragment.findNavController(this).navigate(R.id.action_home_to_chat));
+        binding.homeUseForm.setOnClickListener(v ->
                 NavHostFragment.findNavController(this).navigate(R.id.action_home_to_input));
 
         binding.homeSignOut.setOnClickListener(v -> {
@@ -97,9 +105,7 @@ public class HomeFragment extends Fragment {
      * blanking it, an empty list gets a sentence rather than a void, and a
      * failure says so instead of looking like an empty history.
      */
-    private void render(Result<java.util.List<
-            com.rentradar.android.data.remote.dto.PredictionDtos.Summary>> result) {
-
+    private void render(Result<List<PredictionDtos.Summary>> result) {
         if (result == null || result.isLoading()) {
             return;
         }

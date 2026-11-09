@@ -56,6 +56,11 @@
         android:id="@+id/homeFragment"
         android:name="com.rentradar.android.ui.home.HomeFragment"
         android:label="Home">
+        <!-- The prompt bar opens the conversation. -->
+        <action
+            android:id="@+id/action_home_to_chat"
+            app:destination="@id/chatFragment" />
+        <!-- The old form stays reachable for comparison during the demo. -->
         <action
             android:id="@+id/action_home_to_input"
             app:destination="@id/propertyInputFragment" />
@@ -66,14 +71,23 @@
     </fragment>
 
     <fragment
+        android:id="@+id/chatFragment"
+        android:name="com.rentradar.android.ui.chat.ChatFragment"
+        android:label="New estimate">
+        <!--
+          No popUpTo, same reasoning as the form. Back from the result returns
+          to the conversation with everything still filled in, so a correction
+          is one tap on "Change something" rather than a fresh start.
+        -->
+        <action
+            android:id="@+id/action_chat_to_result"
+            app:destination="@id/resultFragment" />
+    </fragment>
+
+    <fragment
         android:id="@+id/propertyInputFragment"
         android:name="com.rentradar.android.ui.input.PropertyInputFragment"
         android:label="Check a rent">
-        <!--
-          No popUpTo. Back from the result returns to the filled-in form, so a
-          user who mistyped a bedroom count fixes one field instead of retyping
-          the whole thing.
-        -->
         <action
             android:id="@+id/action_input_to_result"
             app:destination="@id/resultFragment" />
