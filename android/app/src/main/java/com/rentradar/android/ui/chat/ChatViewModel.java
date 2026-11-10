@@ -111,6 +111,33 @@ public class ChatViewModel extends ViewModel {
         return slots.locality == null ? "" : slots.locality;
     }
 
+    /**
+     * The one-line summary the result screen prints under the price, for
+     * example "2 bed · 110 m² · East Legon, Accra". Only the parts that were
+     * answered appear, so a missing size simply leaves a shorter line.
+     */
+    public String description() {
+        List<String> parts = new ArrayList<>();
+        if (slots.bedrooms != null) {
+            parts.add(res.getString(R.string.result_desc_beds, slots.bedrooms));
+        }
+        if (slots.sizeSqm != null) {
+            parts.add(res.getString(R.string.result_desc_size, plain(slots.sizeSqm)));
+        }
+        if (slots.locality != null) {
+            parts.add(res.getString(R.string.result_desc_place, slots.locality));
+        }
+        StringBuilder sb = new StringBuilder();
+        String separator = res.getString(R.string.result_desc_separator);
+        for (int i = 0; i < parts.size(); i++) {
+            if (i > 0) {
+                sb.append(separator);
+            }
+            sb.append(parts.get(i));
+        }
+        return sb.toString();
+    }
+
     /** Called after navigating away, so coming back does not re-fire the old result. */
     public void clearSubmission() {
         submission.setValue(null);
